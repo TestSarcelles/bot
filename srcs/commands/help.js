@@ -25,7 +25,7 @@ var func = function(message, extra)
         message.reply(" l'aide vous à été envoyée \:sunglasses:");
         message.channel.guild.member(message.author).createDM().then(function (channel) {
             channel.send(help);
-        }).catch(console.error());
+        }).catch(err => extra.botInfos.log("Erreur lors de l'envoie du help en DM : " + err));
     }
     return (0);
 }

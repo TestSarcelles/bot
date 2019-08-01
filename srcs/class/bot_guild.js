@@ -10,6 +10,7 @@ class BotGuild
         this.eventsChannel = null;
         this.gamesChannel = null;
         this.greetingsChannel = null;
+        this.greetings = null;
         this.tag = true;
         this.roles = null;
         this.members = null;

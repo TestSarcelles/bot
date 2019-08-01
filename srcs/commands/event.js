@@ -50,7 +50,7 @@ var func = function (message, extra)
         bGuild.defaultChannel.createInvite({maxAge : 60 * 60 * 24, maxUses : 100}).then(invite => {
             event.invite = invite.code;
             extra.event_center.addEvent(event, message, extra);
-        }).catch(console.error);
+        }).catch(err => extra.botInfos.log("Erreur lors de la génération de l'invitation dans l'event : " + err));
     }
     if (KW_id == 1)
         extra.event_center.listEvents(message);

@@ -21,11 +21,11 @@ var func = function (message, extra)
                 msg += `**${user}** du Refuge à quérit la présence d'une autorité pour la raison suivante :\n\n`;
                 msg += "*" + user_msg + "*\n\n- Sady";
                 channel.send(msg);
-            }).catch(console.error());
+            }).catch(err => extra.botInfos.log("Erreur lors de l'envoie d'un DM à un modérateur : " + err));
         }
     });
     if (found)
-        message.channel.send(` **${user}**, les modérateurs ont été prévenus.`);
+        message.channel.send(`**${user}**, les modérateurs ont été prévenus.`);
     else
         message.channel.send("Je n'ai trouvé aucun Modérateur sur ce serveur \:thinking:");
 }

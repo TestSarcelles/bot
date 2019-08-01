@@ -37,32 +37,11 @@ var saveEvents = cron.schedule("*/30 * * * *", () => {
 });
 
 bot.on("ready", () => {
-    extra.ranks = [
-                    { emoji: "bronze", names: ["Bronze"]},
-                    { emoji: "silver", names: ["Silver", "Argent"]},
-                    { emoji: "gold", names: ["Gold", "Or"]},
-                    { emoji: "platinum", names: ["Platinum", "Platine"]},
-                    { emoji: "diamond", names: ["Diamond", "Diamant"]},
-                    { emoji: "master", names: ["Master", "Maître"]},
-                    { emoji: "grandmaster", names: ["Grand Master", "Grand Maître"]},
-                    { emoji: "top500", names: ["Top 500"]}
-                ];
-    extra.emojis = {"bronze" : bot.emojis.get("603238461738319872").toString(),
-                "silver" : bot.emojis.get("603238461570416653").toString(),
-                "gold" : bot.emojis.get("603238461180215296").toString(),
-                "platinum" : bot.emojis.get("603238461171826698").toString(),
-                "diamond" : bot.emojis.get("603238462338105354").toString(),
-                "master" : bot.emojis.get("603238461079814154").toString(),
-                "grandmaster" : bot.emojis.get("603238462577049615").toString(),
-                "top500" : bot.emojis.get("603238603602264085").toString(),
-                "overWL" : bot.emojis.get("604046462434803748").toString(),
-                "pile_coin" : bot.emojis.get("604294286216921089").toString(),
-                "face_coin" : bot.emojis.get("604294286355202058").toString()};
     event_center.loadEvents();
     guild_center.setStartGuilds(bot.guilds);
     bot.user.setActivity(botInfos.activity);
-    let msg = "Je suis opérationnel et **mis à jour**, faites un petit __**" + botInfos.prefix + "help**__ pour voir les **nouveautés** \:sunglasses:\n"
-    guild_center.sendAllGuildsMsg(msg);
+    //let msg = "Je suis opérationnel et **mis à jour**, faites un petit __**" + botInfos.prefix + "help**__ pour voir les **nouveautés** \:sunglasses:\n"
+    //guild_center.sendAllGuildsMsg(msg);
     task.start();
     saveEvents.start();
 });
@@ -111,7 +90,7 @@ bot.on('message', function (message) {
         message.channel.send("Désolé mais cette commande est **désactivée** sur ce serveur \:thinking:");
         return ;
     }
-    console.log(message.author.username + " à utilisé la commande : " + message);
+    botInfos.log(message.author.username + " sur " + message.member.guild.name + " à utilisé la commande : " + message);
     if (commands[cmd_id].run(message, extra) == 1)
         message.channel.send("*Sady*, out ! \:sunglasses:");
 });
@@ -134,6 +113,8 @@ bot.on('guildMemberAdd', function (member) {
     {
         const overWL = extra.emojis["overWL"];
         let greet = "Bienvenue sur **" + member.guild.name + `**, __**${member}**__ ! \:smiley:\n`;
+        if (bGuild.greetings != null)
+            greet += bGuild.greetings + "\n";
         greet += "Tu peux utiliser **" + botInfos.prefix + "help** pour consulter toutes les **commandes** du serveur !\n";
         if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "ranks") == undefined)
         {
@@ -152,10 +133,10 @@ bot.on('guildMemberAdd', function (member) {
 bot.on('message', function (message) {
     //if ((message.member == null || message.member.user.bot) && message.content.includes("**Amuse toi bien !** \:smile:"))
     let bGuild;
-    if (message.channel.type != "dm")
-        bGuild = guild_center.getGuild(message.channel.guild, "g");
-    if (message.channel.type != "dm" && message.author == bot.user
-    && message.content.includes("**Amuse toi bien !** \:smile:") && bGuild.blockedCmds.find(blockedCmd => blockedCmd == "ranks") == undefined)
+    if (message.channel.type == "dm")
+        return ;
+    bGuild = guild_center.getGuild(message.channel.guild, "g");
+    if (message.author == bot.user && message.content.includes("**Amuse toi bien !** \:smile:") && bGuild.blockedCmds.find(blockedCmd => blockedCmd == "ranks") == undefined)
     {
         let cmd_id = get_command(botInfos.prefix + "ranks");
         commands[cmd_id].run(message, extra);
@@ -181,7 +162,7 @@ bot.on('messageReactionAdd', (reaction, user) => {
             if (rank.names.find(name => name == role.name) != undefined)
             {
                 role_id = role.id;
-                member.removeRole(role_id).catch(console.error());
+                member.removeRole(role_id).catch(err => botInfos.log("Erreur lors de removeRole() : " + err));
             } 
         });
     });
@@ -192,7 +173,7 @@ bot.on('messageReactionAdd', (reaction, user) => {
         if (role_id != undefined)
         {
             role_id = role_id.id;
-            member.addRole(role_id).catch(console.error());
+            member.addRole(role_id).catch(err => botInfos.log("Erreur lors de addRole() : " + err));
         }
     }
 });

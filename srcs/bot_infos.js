@@ -1,3 +1,5 @@
+const BotDate = require("./class/bot_date.js");
+
 class BotInfos
 {
     constructor()
@@ -8,10 +10,13 @@ class BotInfos
         this.name = "Sady le Ménestrel";
         this.prefix = "$";
         this.activity = "passer le balais ... | " + this.prefix + "help";
-        this.token = "NjAzODg0MjE0NDQxNzM4MjQz.XToGow.PjpI2MhWgSPV_T9V90DYANtK_IU";
+        this.token = "NjAzODg0MjE0NDQxNzM4MjQz.XUK7Hg.voX8PRLcIga8oivcFiq-HhiGlAI";
     }
 
-    
+    log(msg)
+    {
+        console.log(new BotDate().fromDate(new Date().toString()) + " > " + msg);
+    }
 
     setServerName(name)
     {
@@ -39,7 +44,7 @@ class BotInfos
                     msg += message;
                     msg += "\n\n- Sady";
                     channel.send(msg);
-                }).catch(console.error());
+                }).catch(err => this.log("Erreur lors de l'envoi d'un DM à un administrateur : " + err));
             }
         });
     }

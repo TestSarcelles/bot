@@ -39,7 +39,7 @@ var func = function(message, extra)
             msg += "Vous avez été **expulsé** de **" + message.channel.guild.name + "** pour la raison suivante :\n\n";
             msg += "*" + kickMsg + "*\n\n- Sady";
             channel.send(msg);
-        }).catch(console.error());
+        }).catch(err => extra.botInfos.log("Erreur lors de l'envoie du DM d'expulision : " + err));
         message.channel.send(`**${message.author}** à expulsé **${userKicked}** pour la raison suivante :\n` + "*" + kickMsg + "*");
         message.channel.guild.member(userKicked).kick(kickMsg);
     }

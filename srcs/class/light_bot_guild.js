@@ -15,6 +15,7 @@ class LightBotGuild
         if (bGuild.greetingsChannel != null)
             this.greetingsChannelId = bGuild.greetingsChannel.id;
         this.blockedCmds = bGuild.blockedCmds;
+        this.greetings = bGuild.greetings;
     }
 }
 

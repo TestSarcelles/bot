@@ -21,7 +21,7 @@ var func = function (message, extra)
                 msg += `**${user}** du Refuge à quérit la présence d'une autorité pour la raison suivante :\n\n`;
                 msg += "*" + user_msg + "*\n\n- Sady";
                 channel.send(msg);
-            }).catch(console.error());
+            }).catch(err => extra.botInfos.log("Erreur lors d'un DM à un admin : " + err));
         }
     });
     if (found)

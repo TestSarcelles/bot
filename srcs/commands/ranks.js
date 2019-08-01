@@ -8,7 +8,14 @@ var func = function (message, extra)
 {
     let emojis = [];
     for (var i = 0; i < extra.ranks.length; i++)
+    {
+        /*if (extra.emojis[extra.ranks[i].emoji] == undefined)
+        {
+            message.channel.send("Désolé mais la commande **" + name + "** est **temporairement indisponible** \:thinking:")
+            return (0);
+        }*/
         emojis.push(extra.emojis[extra.ranks[i].emoji]);
+    }
         
     message.react(emojis[0])
         .then(() => message.react(emojis[1]))
@@ -18,7 +25,7 @@ var func = function (message, extra)
         .then(() => message.react(emojis[5]))
         .then(() => message.react(emojis[6]))
         .then(() => message.react(emojis[7]))
-    .catch(console.error());
+    .catch(err => extra.botInfos.log("Erreur lors des ranks réactions : " + err));
     return (0);
 }
 

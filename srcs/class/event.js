@@ -92,7 +92,6 @@ class Event
         let id = this.id;
         this.subscribedUsers.forEach(lightUser =>
         {
-            extra.warnedUsers.push(lightUser);
             let bGuild = extra.botInfos.guilds.find(bGuild => bGuild.id == lightUser.guildId);
             let member;
             if (bGuild != undefined && (member = bGuild.members.find(member => member.user.id == lightUser.id)) != undefined)
@@ -103,7 +102,7 @@ class Event
                     msg += "*Si tu ne souhaites plus y participer, n'oublie pas de te désister dès maintenant en faisant __**" + extra.botInfos.prefix + "event leave " + id + "**__ !*\n\n";
                     msg += "- Sady";
                     channel.send(msg);
-                }).catch(console.error());
+                }).catch(err => extra.botInfos.log("Erreur lors de l'envoie de l'alerte near event en DM : " + err));
             }
         });
     }

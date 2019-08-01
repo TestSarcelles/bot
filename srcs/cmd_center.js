@@ -17,6 +17,7 @@ const ban = require("./commands/ban.js");
 const tag = require("./commands/tag.js");
 const setChannel = require("./commands/setChannel.js");
 const cmd = require("./commands/cmd.js");
+const greetings = require("./commands/greetings.js");
 
 var cmds = [];
 cmds.push(help);
@@ -25,6 +26,7 @@ cmds.push(kick);
 cmds.push(ban);
 cmds.push(tag);
 cmds.push(setChannel);
+cmds.push(greetings);
 cmds.push(cmd);
 cmds.push(role);
 cmds.push(game);

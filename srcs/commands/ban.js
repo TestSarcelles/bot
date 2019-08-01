@@ -39,7 +39,7 @@ var func = function(message, extra)
             msg += "Vous avez été **banni** de **" + extra.botInfos.serverName + "** pour la raison suivante :\n\n";
             msg += "*" + banMsg + "*\n\n- Sady";
             channel.send(msg);
-        }).catch(console.error());
+        }).catch(err => extra.botInfos.log("Erreur lors du DM au joueur ban : " + err));
         message.channel.send(`**${message.author}** à expulsé **${userBanned}** pour la raison suivante :\n*` + banMsg + "*");
         message.channel.guild.member(userBanned).kick(banMsg);
     }

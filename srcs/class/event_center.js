@@ -44,7 +44,7 @@ class EventCenter
         message.reply(" l'aide vous à été envoyée \:sunglasses:");
         message.channel.guild.member(message.author).createDM().then(function (channel) {
             channel.send(help);
-        }).catch(console.error());
+        }).catch(err => this.bInf.log("Erreur lors de l'envoie de event help en DM : " + err));
     }
 
     getKeyWords()
@@ -192,7 +192,7 @@ class EventCenter
             let eventGuild = extra.botInfos.guilds.find(bGuild => bGuild.id == event.guildId);
             if (now == null)
                 now = new BotDate().fromDate(new Date().toString());
-            console.log("Check: nous sommes " + now.toString());
+            extra.botInfos.log("Check: nous sommes " + now.toString());
             var diff = now.diff(event.date);
             if (diff >= 0 && diff <= 90)
             {
@@ -223,10 +223,7 @@ class EventCenter
                 if (bGuild.blockedCmds.find(blockedCmd => blockedCmd.includes("vents") == true) == undefined)
                 {
                     if (bGuild.lastHourMsg != null)
-                    {
-                        bGuild.lastHourMsg.delete().catch(console.log(" "));
-                        bGuild.lastHourMsg = null;
-                    }      
+                        bGuild.lastHourMsg.delete().catch(err => console.log("Erreur lors de la suppression du dernier Message de Check : " + err));
                     let msg = "**Coucou tout le monde !** \:smiley:\n";
                     msg += "N'hésitez **pas** à faire un petit __**" + extra.botInfos.prefix + "event list**__ pour voir la liste des **évènements actuels**,\n";
                     msg += "ou à faire un __**" + extra.botInfos.prefix + "event new**__ pour créer le votre ! \:smile:"
@@ -260,12 +257,13 @@ class EventCenter
     
     saveEvents()
     {
+        this.bInf.log("Sauvegarde des Events en cours ...");
         if (this.events.length == 0)
-            fs.writeFile(this.jsonEventsFile, null, (err) => {if (err) throw err; console.log('jsonEvents set à null');});
+            fs.writeFile(this.jsonEventsFile, null, (err) => {if (err) throw err; this.bInf.log('jsonEvents set à null');});
         else
         {
             let data = JSON.stringify(this.events, null, 2);
-            fs.writeFile(this.jsonEventsFile, data, (err) => {if (err) throw err; console.log('Events sauvegardés');});
+            fs.writeFile(this.jsonEventsFile, data, (err) => {if (err) throw err; this.bInf.log('Events sauvegardés');});
         }
     }
 }

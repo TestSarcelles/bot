@@ -17,7 +17,7 @@ class GuildCenter
         let defaultChannel = guild.channels.find(channel => channel.name == "général" || channel.name == "general");
         if (defaultChannel == undefined || defaultChannel == null)
         {
-            console.log("pas de général, premier channel text sélectionné");
+            this.botInfos.log("pas de général, premier channel text sélectionné");
             defaultChannel = guild.channels.find(channel => channel.type == "text");
         }
         newGuild.setName(guild.name);
@@ -61,6 +61,7 @@ class GuildCenter
                     bGuild.greetingsChannel = null;
                 
                 bGuild.blockedCmds = jsonGuild.blockedCmds;
+                bGuild.greetings = jsonGuild.greetings;
             }
         });
     }
@@ -79,7 +80,7 @@ class GuildCenter
         this.botInfos.guilds.forEach(bGuild => {
             lightbGuilds.push(new LightBotGuild(bGuild));
         });
-    
+        this.botInfos.log("Sauvegarde des Guilds en cours ...");
         let data;
         if (lightbGuilds.length > 0)
             data = JSON.stringify(lightbGuilds, null, 2);
@@ -87,7 +88,7 @@ class GuildCenter
             data = null;
         fs.writeFile(this.jsonGuildsFile, data, (err) => {
             if (err) throw err;
-            console.log('bGuilds sauvegardées');
+            this.botInfos.log("bGuilds sauvegardées");
         });
     }
 
@@ -102,6 +103,13 @@ class GuildCenter
             bGuild.gamesChannel = newChannel;
         else
             bGuild.greetingsChannel = newChannel;
+        this.saveGuilds();
+    }
+
+    setGreetings(guild, newGreetMsg)
+    {
+        let bGuild = this.botInfos.guilds.find(bG => bG.id == guild.id);
+        bGuild.greetings = newGreetMsg;
         this.saveGuilds();
     }
 
