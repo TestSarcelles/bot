@@ -12,6 +12,8 @@ class Extra
         this.greetHelp = null
         this.bot = null;
         this.guild_center = null;
+        this.cv_center = null;
+        this.team_center = null;
         this.ranks = [
             { emoji: "bronze", names: ["Bronze"]},
             { emoji: "silver", names: ["Silver", "Argent"]},
@@ -22,7 +24,7 @@ class Extra
             { emoji: "grandmaster", names: ["Grand Master", "Grand Maître"]},
             { emoji: "top500", names: ["Top 500"]}
         ];
-        extra.emojis = {
+        this.emojis = {
             "bronze" : "603238461738319872",
             "silver" : "603238461570416653",
             "gold" : "603238461180215296",

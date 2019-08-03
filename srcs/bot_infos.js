@@ -7,10 +7,42 @@ class BotInfos
         this.guilds = [];
         //this.serverName = null;
         this.creator = "IdCom4#8964";
-        this.name = "Sady le Ménestrel";
+        this.name = "OverLead";
         this.prefix = "$";
         this.activity = "passer le balais ... | " + this.prefix + "help";
-        this.token = "NjAzODg0MjE0NDQxNzM4MjQz.XUK7Hg.voX8PRLcIga8oivcFiq-HhiGlAI";
+        this.token = "NjAzODg0MjE0NDQxNzM4MjQz.XUXpng.o9NujRyP-YOFCCh53g3yiu4Cgkg";
+        this.heros = [
+            "ana",
+            "ashe",
+            "baptiste",
+            "brigitte",
+            "d.va",
+            "doomfist",
+            "genji",
+            "hanzo",
+            "junkrat",
+            "lucio",
+            "mccree",
+            "mei",
+            "mercy",
+            "moira",
+            "orisa",
+            "pharah",
+            "reaper",
+            "reinhardt",
+            "roadhog",
+            "sigma",
+            "soldier",
+            "sombra",
+            "symmetra",
+            "torbjorn",
+            "tracer",
+            "widow",
+            "winston",
+            "hammond",
+            "zarya",
+            "zenyatta"
+        ];
     }
 
     log(msg)
@@ -42,7 +74,7 @@ class BotInfos
                 member.createDM().then(function (channel) {
                     let msg = `Bonjour administateur **${member.user}**.\n`;
                     msg += message;
-                    msg += "\n\n- Sady";
+                    msg += "\n\n- OverLead";
                     channel.send(msg);
                 }).catch(err => this.log("Erreur lors de l'envoi d'un DM à un administrateur : " + err));
             }

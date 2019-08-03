@@ -2,7 +2,7 @@ const Cmd = require("../class/cmd.js");
 
 var name = "clean";
 
-var description = "**Efface** les message envoyés par **Sady**.";
+var description = "**Efface** les message envoyés par **OverLead**.";
 
 var func = function (message, extra)
 {

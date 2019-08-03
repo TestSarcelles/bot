@@ -5,11 +5,11 @@ const bInf = new Botinfos();
 
 var name = "setChannel";
 
-var description = "Permet de changer les **channels** que Sady **utilise par défaut** en spécifiant quel channel vous voulez changer ainsi que le **nom** du **nouveau channel**.\n";
-description += "Vous pouvez changer le channel **events** dans lequel Sady envoie tout ce qui est relatif aux **évènements**.\n";
-description += "Vous pouvez changer le channel **games** dans lequel Sady envoie tout ce qui est relatif aux **jeux** (comme le **morpion** par exemple).\n";
-description += "Vous pouvez changer le channel **greetings** dans lequel Sady **souhaite la bienvenue** aux nouveaux membres.\n";
-description += "Vous pouvez changer le channel **default** dans lequel Sady **envoie tout** ce qui n'a pas de channel attribué.\n";
+var description = "Permet de changer les **channels** que OverLead **utilise par défaut** en spécifiant quel channel vous voulez changer ainsi que le **nom** du **nouveau channel**.\n";
+description += "Vous pouvez changer le channel **events** dans lequel OverLead envoie tout ce qui est relatif aux **évènements**.\n";
+description += "Vous pouvez changer le channel **games** dans lequel OverLead envoie tout ce qui est relatif aux **jeux** (comme le **morpion** par exemple).\n";
+description += "Vous pouvez changer le channel **greetings** dans lequel OverLead **souhaite la bienvenue** aux nouveaux membres.\n";
+description += "Vous pouvez changer le channel **default** dans lequel OverLead **envoie tout** ce qui n'a pas de channel attribué.\n";
 description += "Ex : **" + bInf.prefix + "setChannel __games__ __mon-channel-de-jeux__**\n";
 description += "(__**nécessite d'être au moins modérateur**__)";
 

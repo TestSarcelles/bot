@@ -5,7 +5,7 @@ const bInf = new Botinfos();
 
 var name = "greetings";
 
-var description = "Permet de **personnaliser** le **message de bienvenue** de Sady en ajoutant ce que vous lui direz **entre la première ligne et le reste**.\n";
+var description = "Permet de **personnaliser** le **message de bienvenue** de OverLead en ajoutant ce que vous lui direz **entre la première ligne et le reste**.\n";
 description += "Ex : **" + bInf.prefix + "greetings __Nous te souhaitons de passer un agréable moment parmis nous, et n'oublie pas d'aller lire les règles :)__**\n";
 description += "Resultat :\n";
 description += "Bienvenue sur **Nom du Serveur**, __**John Doe**__ ! \:smiley:\n";

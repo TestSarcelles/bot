@@ -5,13 +5,17 @@ const BotInfos = require("./srcs/bot_infos.js");
 const Morpion = require("./srcs/class/morpion.js");
 const Power4 = require("./srcs/class/power4.js");
 const GuildCenter = require("./srcs/class/guild_center.js");
+const CvCenter = require("./srcs/class/cv_center.js");
+const TeamCenter = require("./srcs/class/team_center.js");
 const commands = require("./srcs/cmd_center");
 var cron = require('node-cron');
 
 var bot = new Discord.Client();
 var botInfos = new BotInfos();
-var event_center = new EventCenter();
 
+var team_center = new TeamCenter();
+var event_center = new EventCenter();
+var cv_center = new CvCenter();
 var guild_center = new GuildCenter();
 guild_center.botInfos = botInfos;
 
@@ -20,6 +24,8 @@ extra.morpion = new Morpion();
 extra.power4 = new Power4();
 extra.commands = commands;
 extra.event_center = event_center;
+extra.cv_center = cv_center;
+extra.team_center = team_center;
 extra.botInfos = botInfos;
 extra.bot = bot;
 extra.guild_center = guild_center;
@@ -38,6 +44,8 @@ var saveEvents = cron.schedule("*/30 * * * *", () => {
 
 bot.on("ready", () => {
     event_center.loadEvents();
+    cv_center.loadCvs();
+    team_center.loadTeams();
     guild_center.setStartGuilds(bot.guilds);
     bot.user.setActivity(botInfos.activity);
     //let msg = "Je suis opérationnel et **mis à jour**, faites un petit __**" + botInfos.prefix + "help**__ pour voir les **nouveautés** \:sunglasses:\n"
@@ -48,7 +56,7 @@ bot.on("ready", () => {
 
 bot.on("guildCreate", guild => {
     guild_center.addGuild(guild);
-    let msg = "Bonjour tout le monde ! Je m'appelle **Sady**, pour vous servir \:heart:\n";
+    let msg = "Bonjour tout le monde ! Je m'appelle **OverLead**, pour vous servir \:heart:\n";
     msg += "Faites un petit **" + botInfos.prefix + "help** pour prendre connaissance de ce que **je peux faire** ! \:sunglasses:\n";
     msg += "Pour les administrateurs/modérateurs, faites également un petit **" + botInfos.prefix + "requirements** pour être sûr d'avoir tout ce dont j'ai **besoin** pour fonctionner **au poil** \:wink:\n";
     msg += "ainsi qu'un **" + botInfos.prefix + "help** pour configurer le __**tag**__.";
@@ -92,7 +100,7 @@ bot.on('message', function (message) {
     }
     botInfos.log(message.author.username + " sur " + message.member.guild.name + " à utilisé la commande : " + message);
     if (commands[cmd_id].run(message, extra) == 1)
-        message.channel.send("*Sady*, out ! \:sunglasses:");
+        message.channel.send("*OverLead*, out ! \:sunglasses:");
 });
 
 bot.on('guildMemberAdd', function (member) {

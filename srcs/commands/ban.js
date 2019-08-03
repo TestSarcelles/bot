@@ -37,7 +37,7 @@ var func = function(message, extra)
         message.channel.guild.member(userKicked).createDM().then(function (channel) {
             let msg = `Bonjour **${userBanned}**.\n`;
             msg += "Vous avez été **banni** de **" + extra.botInfos.serverName + "** pour la raison suivante :\n\n";
-            msg += "*" + banMsg + "*\n\n- Sady";
+            msg += "*" + banMsg + "*\n\n- OverLead";
             channel.send(msg);
         }).catch(err => extra.botInfos.log("Erreur lors du DM au joueur ban : " + err));
         message.channel.send(`**${message.author}** à expulsé **${userBanned}** pour la raison suivante :\n*` + banMsg + "*");

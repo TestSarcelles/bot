@@ -12,7 +12,11 @@ var func = function(message, extra)
         .setTitle(`Voici la liste des commandes disponibles :`)
         .setThumbnail("https://www.topdeguisements.com/530-tm_large_default/costume-d-inf-menestrel.jpg");
     for (var i = 0; i < extra.commands.length; i++)
-        help.addField("\t" + extra.botInfos.prefix + "**" + extra.commands[i].name + "**", extra.commands[i].description, true);
+    {
+        if (extra.commands[i].description != "creator")
+            help.addField("\t" + extra.botInfos.prefix + "**" + extra.commands[i].name + "**", extra.commands[i].description, true);
+    }
+        
     help.setFooter("Créé par IdCom4#8964");
     if (extra.greetHelp != null)
     {

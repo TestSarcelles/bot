@@ -1,9 +1,10 @@
 class LightUser
 {
-    constructor(id, guildId)
+    constructor(id, guildId, name)
     {
         this.id = id;
         this.guildId = guildId;
+        this.name = name;
     }
 }
 

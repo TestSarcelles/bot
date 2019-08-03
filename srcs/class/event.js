@@ -9,9 +9,9 @@ class Event
         this.title = title;
         this.description = description;
         this.id = id;
-        this.author = new LightUser(author.id, guildId);
+        this.author = new LightUser(author.id, guildId, author.username);
         this.subscribedUsers = [];
-        this.subscribedUsers.push(new LightUser(author.id, guildId));
+        this.subscribedUsers.push(new LightUser(author.id, guildId, author.username));
         this.date = date;
         this.guildId = guildId;
         this.invite = null;
@@ -100,7 +100,7 @@ class Event
                     let msg = `Bonjour **${member.user}** ! \:smiley:\n`;
                     msg += "N'oublie pas que tu es inscrit à l'évènement __**" + title + "**__ ayant lieu à **" + hour + "** !\n\n";
                     msg += "*Si tu ne souhaites plus y participer, n'oublie pas de te désister dès maintenant en faisant __**" + extra.botInfos.prefix + "event leave " + id + "**__ !*\n\n";
-                    msg += "- Sady";
+                    msg += "- OverLead";
                     channel.send(msg);
                 }).catch(err => extra.botInfos.log("Erreur lors de l'envoie de l'alerte near event en DM : " + err));
             }

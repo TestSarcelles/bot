@@ -240,19 +240,21 @@ class EventCenter
 
         if (jsonEvents == null)
             return ;
-        jsonEvents.forEach(jsonEvents => {
-            let d = jsonEvents.date;
+        let i = 0;
+        jsonEvents.forEach(jsonEvent => {
+            let d = jsonEvent.date;
             let bDate = new BotDate(d.day + "/" + d.month + "/" + d.year + " " + d.hour + "h" + d.minute);
-            let event = new Event(jsonEvents.title,
-                                jsonEvents.description,
-                                jsonEvents.id,
-                                jsonEvents.author,
-                                bDate, jsonEvents.guildId);
-            event.subscribedUsers = jsonEvents.subscribedUsers;
-            event.invite = jsonEvents.invite;
+            let event = new Event(jsonEvent.title,
+                                jsonEvent.description,
+                                i,
+                                jsonEvent.author,
+                                bDate, jsonEvent.guildId);
+            event.subscribedUsers = jsonEvent.subscribedUsers;
+            event.invite = jsonEvent.invite;
             this.events.push(event);
+            i++;
         });
-        this.nextId = this.events[this.events.length - 1].id + 1;
+        this.nextId = i;
     }
     
     saveEvents()
