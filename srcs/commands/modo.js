@@ -20,14 +20,14 @@ var func = function (message, extra)
                 let msg = `Bonjour modérateur **${member.user}**.\n`;
                 msg += `**${user}** du Refuge à quérit la présence d'une autorité pour la raison suivante :\n\n`;
                 msg += "*" + user_msg + "*\n\n- OverLead";
-                channel.send(msg);
-            }).catch(err => extra.botInfos.log("Erreur lors de l'envoie d'un DM à un modérateur : " + err));
+                channel.send(msg).catch(err => extra.botInfos.log("Erreur lors de l'envoi d'un DM à un modérateur : " + err));
+            }).catch(err => extra.botInfos.log("Erreur lors de la creation d'un MP : " + err));
         }
     });
     if (found)
-        message.channel.send(`**${user}**, les modérateurs ont été prévenus.`);
+        message.channel.send(`**${user}**, les modérateurs ont été prévenus.`).catch(err => extra.botInfos.log("Erreur lors d'un send modo : " + err));
     else
-        message.channel.send("Je n'ai trouvé aucun Modérateur sur ce serveur \:thinking:");
+        message.channel.send("Je n'ai trouvé aucun Modérateur sur ce serveur \:thinking:").catch(err => extra.botInfos.log("Erreur lors d'un send modo : " + err));
 }
 
 var modo = new Cmd(name, description, func);

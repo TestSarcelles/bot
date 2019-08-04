@@ -101,8 +101,8 @@ class Event
                     msg += "N'oublie pas que tu es inscrit à l'évènement __**" + title + "**__ ayant lieu à **" + hour + "** !\n\n";
                     msg += "*Si tu ne souhaites plus y participer, n'oublie pas de te désister dès maintenant en faisant __**" + extra.botInfos.prefix + "event leave " + id + "**__ !*\n\n";
                     msg += "- OverLead";
-                    channel.send(msg);
-                }).catch(err => extra.botInfos.log("Erreur lors de l'envoie de l'alerte near event en DM : " + err));
+                    channel.send(msg).catch(err => extra.botInfos.log("Erreur lors de l'envoi de l'alerte near event en DM : " + err));;
+                }).catch(err => extra.botInfos.log("Erreur lors la creation du DM : " + err));
             }
         });
     }

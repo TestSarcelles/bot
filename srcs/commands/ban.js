@@ -14,7 +14,7 @@ var func = function(message, extra)
     
     if (!message.channel.guild.member(message.author).hasPermission("ADMINISTRATOR"))
     {
-        message.channel.send("Vous n'avez __**pas la permission**__ de bannir quelqu'un ! \:frowning:");
+        message.channel.send("Vous n'avez __**pas la permission**__ de bannir quelqu'un ! \:frowning:").catch(err => extra.botInfos.log("Erreur lors d'un send ban : " + err));
         if (message.mentions.users.size != 0)
             extra.botInfos.alertAdmins(`${message.author} à essayé de bannir ${message.mentions.users.first()} !`);
         return (0);
@@ -22,14 +22,14 @@ var func = function(message, extra)
 
     if (message.mentions.users.size == 0)
     {
-        message.channel.send("Vous devez me **mentionner** quelqu'un \:thinking:");
+        message.channel.send("Vous devez me **mentionner** quelqu'un \:thinking:").catch(err => extra.botInfos.log("Erreur lors d'un send ban : " + err));
         return (0);
     }
     var userBanned = message.mentions.users.first();
     var banMsg = message.content.substring(extra.botInfos.prefix.length + name.length + message.content.split(' ')[1].length + 2);
     if (message.content.split(' ')[2] == undefined)
     {
-        message.channel.send(`**${message.author}** à expulsé **${userBanned}** !`);
+        message.channel.send(`**${message.author}** à expulsé **${userBanned}** !`).catch(err => extra.botInfos.log("Erreur lors d'un send ban : " + err));
         message.channel.guild.member(userBanned).kick();
     } 
     else
@@ -38,12 +38,12 @@ var func = function(message, extra)
             let msg = `Bonjour **${userBanned}**.\n`;
             msg += "Vous avez été **banni** de **" + extra.botInfos.serverName + "** pour la raison suivante :\n\n";
             msg += "*" + banMsg + "*\n\n- OverLead";
-            channel.send(msg);
-        }).catch(err => extra.botInfos.log("Erreur lors du DM au joueur ban : " + err));
-        message.channel.send(`**${message.author}** à expulsé **${userBanned}** pour la raison suivante :\n*` + banMsg + "*");
+            channel.send(msg).catch(err => extra.botInfos.log("Erreur lors du DM au joueur ban : " + err));
+        }).catch(err => extra.botInfos.log("Erreur lors de la creation d'un DM : " + err));
+        message.channel.send(`**${message.author}** à expulsé **${userBanned}** pour la raison suivante :\n*` + banMsg + "*").catch(err => extra.botInfos.log("Erreur lors d'un send ban : " + err));
         message.channel.guild.member(userBanned).kick(banMsg);
     }
-    message.delete();
+    message.delete().catch(err => extra.botInfos.log("Erreur lors d'un msg.delete() ban : " + err));
     return (0);
 }
 

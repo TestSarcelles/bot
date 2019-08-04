@@ -110,7 +110,7 @@ var func = function (message, extra)
     if (KW_id == 6)
     {
         var id = message.content.split(" ")[2];
-        message.delete();
+        message.delete().catch(err => botInfos.log("Erreur lors d'un msg.delete() cv : " + err));
         if (id == undefined)
         {
             message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "cv send __id__ msg** attendu.");
@@ -140,15 +140,15 @@ var func = function (message, extra)
             finalMsg += `**${message.author}** du serveur **` + message.guild.name + "** vous a envoyé ce message en **réponse** à votre **CV** :\n\n";
             finalMsg += "*" + msg + "*\n\n";
             finalMsg += "- OverLead";
-            channel.send(finalMsg);
-        }).catch(err => botInfos.log("Erreur lors d'un MP à un proprietaire de CV : " + err));
+            channel.send(finalMsg).catch(err => botInfos.log("Erreur lors d'un MP à un proprietaire de CV : " + err));
+        }).catch(err => botInfos.log("Erreur lors de la creation d'un MP : " + err));
         return (0);
     }
     if (KW_id == 7)
     {
         if (message.mentions.users.size == 0)
         {
-            message.reply(" vous devez me mentionner quelqu'un \:thinking:");
+            message.reply(" vous devez me mentionner quelqu'un \:thinking:").catch(err => botInfos.log("Erreur lors d'un send CV : " + err));
             return (0);
         }
         let user = message.mentions.users.first();

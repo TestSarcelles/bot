@@ -20,14 +20,14 @@ var func = function (message, extra)
                 let msg = `Bonjour administateur **${member.user}**.\n`;
                 msg += `**${user}** du Refuge à quérit la présence d'une autorité pour la raison suivante :\n\n`;
                 msg += "*" + user_msg + "*\n\n- OverLead";
-                channel.send(msg);
-            }).catch(err => extra.botInfos.log("Erreur lors d'un DM à un admin : " + err));
+                channel.send(msg).catch(err => extra.botInfos.log("Erreur lors d'un DM à un admin : " + err));
+            }).catch(err => extra.botInfos.log("Erreur de la creation d'un DM à un admin : " + err));
         }
     });
     if (found)
-        message.channel.send(` **${user}**, les administateurs ont été prévenus.`);
+        message.channel.send(` **${user}**, les administateurs ont été prévenus.`).catch(err => extra.botInfos.log("Erreur lors d'un send admin : " + err));
     else
-        message.channel.send("Je n'ai trouvé aucun Administrateur sur ce serveur \:thinking:");
+        message.channel.send("Je n'ai trouvé aucun Administrateur sur ce serveur \:thinking:").catch(err => extra.botInfos.log("Erreur lors d'un send admin : " + err));
 }
 
 var admin = new Cmd(name, description, func);

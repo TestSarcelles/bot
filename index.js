@@ -60,7 +60,7 @@ bot.on("guildCreate", guild => {
     msg += "Faites un petit **" + botInfos.prefix + "help** pour prendre connaissance de ce que **je peux faire** ! \:sunglasses:\n";
     msg += "Pour les administrateurs/modérateurs, faites également un petit **" + botInfos.prefix + "requirements** pour être sûr d'avoir tout ce dont j'ai **besoin** pour fonctionner **au poil** \:wink:\n";
     msg += "ainsi qu'un **" + botInfos.prefix + "help** pour configurer le __**tag**__.";
-    guild_center.getGuild(guild, "g").defaultChannel.send(msg);
+    guild_center.getGuild(guild, "g").defaultChannel.send(msg).catch(err => botInfos.log("Erreur lors de l'invitation du bot : " + err));
 });
 
 function get_command(command)
@@ -95,19 +95,19 @@ bot.on('message', function (message) {
     }
     if (bGuild.blockedCmds.find(blockedCmd => botInfos.prefix + blockedCmd == command) != undefined)
     {
-        message.channel.send("Désolé mais cette commande est **désactivée** sur ce serveur \:thinking:");
+        message.channel.send("Désolé mais cette commande est **désactivée** sur ce serveur \:thinking:").catch(err => botInfos.log("Erreur lors d'un send : " + err));
         return ;
     }
     botInfos.log(message.author.username + " sur " + message.member.guild.name + " à utilisé la commande : " + message);
     if (commands[cmd_id].run(message, extra) == 1)
-        message.channel.send("*OverLead*, out ! \:sunglasses:");
+        message.channel.send("*OverLead*, out ! \:sunglasses:").catch(err => botInfos.log("Erreur lors d'un send : " + err));
 });
 
 bot.on('guildMemberAdd', function (member) {
-    let bGuild = guild_center.getGuild(member, "mem");
     member.createDM().then(function (channel) {
         extra.greetHelp = channel;
-        for (var i = 0; i < extra.commands.length; i++)
+        let cmdLength = extra.commands.length;
+        for (var i = 0; i < cmdLength; i++)
         {
             if (extra.commands[i].name === "help")
             {
@@ -116,7 +116,8 @@ bot.on('guildMemberAdd', function (member) {
             }
         }
         extra.greetHelp = null;
-    });
+    }).catch(err => botInfos.log("Erreur lors de la creation du MP greetings : " + err));
+    let bGuild = guild_center.getGuild(member, "mem");
     if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "greetings") == undefined)
     {
         const overWL = bot.emojis.get(extra.emojis["overWL"]);
@@ -131,9 +132,9 @@ bot.on('guildMemberAdd', function (member) {
         }
         greet += "**Amuse toi bien !** \:smile:";
         if (bGuild.greetingsChannel != null)
-            bGuild.greetingsChannel.send(greet);
+            bGuild.greetingsChannel.send(greet).catch(err => botInfos.log("Erreur lors d'un greet : " + err));
         else
-            bGuild.defaultChannel.send(greet);
+            bGuild.defaultChannel.send(greet).catch(err => botInfos.log("Erreur lors d'un greet : " + err));
     }
 });
 
@@ -161,7 +162,7 @@ bot.on('messageReactionAdd', (reaction, user) => {
     || bGuild.blockedCmds.find(blockedCmd => blockedCmd == "ranks") != undefined)
         return ;
     if (!reaction.message.guild.member(bot.user).hasPermission("MANAGE_ROLES"))
-        return (message.channel.send("Vous ne m'avez pas donné la permission de **gérer les rôles** \:thinking:"));
+        return (message.channel.send("Vous ne m'avez pas donné la permission de **gérer les rôles** \:thinking:").catch(err => botInfos.log("Erreur lors d'un send : " + err)));
     member = reaction.message.channel.guild.member(user);
     roles = reaction.message.channel.guild.roles;
     role_id = null;

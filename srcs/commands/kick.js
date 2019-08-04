@@ -38,12 +38,12 @@ var func = function(message, extra)
             let msg = `Bonjour **${userKicked}**.\n`;
             msg += "Vous avez été **expulsé** de **" + message.channel.guild.name + "** pour la raison suivante :\n\n";
             msg += "*" + kickMsg + "*\n\n- OverLead";
-            channel.send(msg);
-        }).catch(err => extra.botInfos.log("Erreur lors de l'envoie du DM d'expulision : " + err));
-        message.channel.send(`**${message.author}** à expulsé **${userKicked}** pour la raison suivante :\n` + "*" + kickMsg + "*");
+            channel.send(msg).catch(err => extra.botInfos.log("Erreur lors de l'envoie du DM d'expulsion : " + err));
+        }).catch(err => extra.botInfos.log("Erreur lors la creation d'un DM : " + err));
+        message.channel.send(`**${message.author}** à expulsé **${userKicked}** pour la raison suivante :\n` + "*" + kickMsg + "*").catch(err => extra.botInfos.log("Erreur lors d'un send kick : " + err));
         message.channel.guild.member(userKicked).kick(kickMsg);
     }
-    message.delete();
+    message.delete().catch(err => extra.botInfos.log("Erreur lors d'un msg.delete() kick : " + err));
     return (0);
 }
 

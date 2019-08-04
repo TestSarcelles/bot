@@ -84,9 +84,9 @@ var func = function (message, extra)
                                     let finalMsg = `Bonjour **${member.user}**,\n**${message.author}** du serveur **` + message.guild.name;
                                     finalMsg += "** à mis à jour les **profils recherchés** de sa team, cela pourrait peut etre vous **correspondre**";
                                     finalMsg += " (*mettez votre **CV** en indisponible pour ne plus recevoir les **alertes***):\n";
-                                    channel.send(finalMsg);
-                                    channel.send(team.print(extra.bot.guilds, true));
-                                }).catch(err => botInfos.log("Erreur lors de l'envoie d'une alerte team : " + err));
+                                    channel.send(finalMsg).catch(err => botInfos.log("Erreur lors de l'envoi d'une alerte team : " + err));
+                                    channel.send(team.print(extra.bot.guilds, true)).catch(err => botInfos.log("Erreur lors de l'envoi d'une alerte team : " + err));
+                                }).catch(err => botInfos.log("Erreur lors de la creation d'un MP : " + err));
                             }
                         }
                         else
@@ -151,7 +151,7 @@ var func = function (message, extra)
     if (KW_id == 6)
     {
         var id = message.content.split(" ")[2];
-        message.delete();
+        message.delete().catch(err => botInfos.log("Erreur lors d'un msg.delete() team : " + err));
         if (id == undefined)
         {
             message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "team send __id__ msg** attendu.");
@@ -181,8 +181,8 @@ var func = function (message, extra)
             finalMsg += `**${message.author}** du serveur **` + message.guild.name + "** vous a envoyé ce message en **réponse** à votre **Team** :\n\n";
             finalMsg += "*" + msg + "*\n\n";
             finalMsg += "- OverLead";
-            channel.send(finalMsg);
-        }).catch(err => botInfos.log("Erreur lors d'un MP à un proprietaire de Team : " + err));
+            channel.send(finalMsg).catch(err => botInfos.log("Erreur lors d'un MP à un proprietaire de Team : " + err));
+        }).catch(err => botInfos.log("Erreur lors de la creation d'un MP : " + err));
         return (0);
     }
     if (KW_id == 7)

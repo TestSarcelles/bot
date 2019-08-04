@@ -21,15 +21,15 @@ var func = function(message, extra)
     if (extra.greetHelp != null)
     {
         //here message == guild;
-        extra.greetHelp.send("Bienvenue sur **" + message.name + "** ! \:smile:");
-        extra.greetHelp.send(help);
+        extra.greetHelp.send("Bienvenue sur **" + message.name + "** ! \:smile:").catch(err => extra.botInfos.log("Erreur lors du MP greetings : " + err));
+        extra.greetHelp.send(help).catch(err => extra.botInfos.log("Erreur lors du MP greetings : " + err));
     }
     else
     {
         message.reply(" l'aide vous à été envoyée \:sunglasses:");
         message.channel.guild.member(message.author).createDM().then(function (channel) {
-            channel.send(help);
-        }).catch(err => extra.botInfos.log("Erreur lors de l'envoie du help en DM : " + err));
+            channel.send(help).catch(err => extra.botInfos.log("Erreur lors de l'envoie du help en DM : " + err));
+        }).catch(err => extra.botInfos.log("Erreur lors de la creation de DM : " + err));
     }
     return (0);
 }

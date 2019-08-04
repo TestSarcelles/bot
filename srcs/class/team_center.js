@@ -96,8 +96,8 @@ class TeamCenter
         }); 
         help.setFooter("Créé par IdCom4#8964");
         member.createDM().then(function (channel) {
-            channel.send(help);
-        }).catch(err => this.bInf.log("Erreur lors de l'envoie du $cv help à un membre : " + err));
+            channel.send(help).catch(err => this.bInf.log("Erreur lors de l'envoie du $cv help à un membre : " + err));
+        }).catch(err => this.bInf.log("Erreur de la creation d'un DM : " + err));
         return (" l'aide vous à été envoyée \:sunglasses:");
     }
 

@@ -97,7 +97,7 @@ class CvCenter
         }); 
         help.setFooter("Créé par IdCom4#8964");
         member.createDM().then(function (channel) {
-            channel.send(help);
+            channel.send(help).catch(err => this.bInf.log("Erreur lors d'un sendHelp cv : " + err));
         }).catch(err => this.bInf.log("Erreur lors de l'envoie du $cv help à un membre : " + err));
         return (" l'aide vous à été envoyée \:sunglasses:");
     }
@@ -107,13 +107,13 @@ class CvCenter
         let channel = message.channel;
         let tag = extra.botInfos.guilds.find(bGuild => bGuild.id == message.channel.guild.id).tag;
         if (this.cvs.length == 0)
-            return (channel.send("Il n'y a **actuellement** aucun **CV** !"));
+            return (channel.send("Il n'y a **actuellement** aucun **CV** !").catch(err => this.bInf.log("Erreur lors d'un send cv_center : " + err)));
         if (this.cvs.length == 1)
-            channel.send("Voici le seul **CV** actuel :");
+            channel.send("Voici le seul **CV** actuel :").catch(err => this.bInf.log("Erreur lors d'un send cv_center : " + err));
         else
-            channel.send("Voici la liste des **" + this.cvs.length + "** CV actuels :");
+            channel.send("Voici la liste des **" + this.cvs.length + "** CV actuels :").catch(err => this.bInf.log("Erreur lors d'un send cv_center : " + err));
         this.cvs.forEach(cv => {
-            channel.send(cv.print(extra.bot.guilds, tag));
+            channel.send(cv.print(extra.bot.guilds, tag).catch(err => this.bInf.log("Erreur lors du send list cv_center : " + err)));
         });
     }
 
@@ -161,13 +161,13 @@ class CvCenter
     {
         let channel = message.channel;
         let tag = extra.botInfos.guilds.find(bGuild => bGuild.id == message.channel.guild.id).tag;
-        channel.send("Voici le **résultat** de votre recherche :");
+        channel.send("Voici le **résultat** de votre recherche :").catch(err => this.bInf.log("Erreur lors d'un send cv_center : " + err));
         let matchingCvs = this.findCvs(criterias);
         matchingCvs.forEach(cv => {
             channel.send(cv.print(extra.bot.guilds, tag))
         });
         if (matchingCvs.length == 0)
-            channel.send("Aucun **CV** ne correspond à votre recherche.");
+            channel.send("Aucun **CV** ne correspond à votre recherche.").catch(err => this.bInf.log("Erreur lors d'un send cv_center : " + err));
     }
 
     addCv(cv)

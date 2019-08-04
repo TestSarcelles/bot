@@ -43,7 +43,7 @@ class EventCenter
             .setFooter("Créé par IdCom4#8964");
         message.reply(" l'aide vous à été envoyée \:sunglasses:");
         message.channel.guild.member(message.author).createDM().then(function (channel) {
-            channel.send(help);
+            channel.send(help).catch(err => this.bInf.log("Erreur lors du sendHelp event_center : " + err));
         }).catch(err => this.bInf.log("Erreur lors de l'envoie de event help en DM : " + err));
     }
 
@@ -85,22 +85,22 @@ class EventCenter
                 if (channel != undefined && channel != null)
                 {
                     if (tag)
-                        channel.send(`${everyone}`)
+                        channel.send(`${everyone}`).catch(err => this.bInf.log("Erreur lors d'un send everyone : " + err));
                     let intro = "Nouvel **évènement** ! faites un **" + extra.botInfos.prefix + "event join " + event.id + "** pour vous y inscrire \:smile:";
-                    channel.send(event.fullPrint(intro, tag, extra, fromOrigin));
+                    channel.send(event.fullPrint(intro, tag, extra, fromOrigin)).catch(err => this.bInf.log("Erreur lors d'un send addEvent : " + err));
                 }
             }
         });
-        message.delete();
+        message.delete().catch(err => this.bInf.log("Erreur lors d'un msg.delete() event_center : " + err));
         this.saveEvents();
     }
 
     listEvents(message)
     {
         if (this.events.length == 0)
-            return (message.channel.send("Aucun **évènement** de prévu !"));
+            return (message.channel.send("Aucun **évènement** de prévu !").catch(err => this.bInf.log("Erreur lors d'un send list event_center : " + err)));
         this.events.forEach(event => {
-            message.channel.send(event.lightPrint());
+            message.channel.send(event.lightPrint()).catch(err => this.bInf.log("Erreur lors d'un send list event_center : " + err));
         });
     }
 
@@ -111,13 +111,13 @@ class EventCenter
         this.events.forEach(event => {
             if (event.id == id)
             {
-                message.channel.send(event.fullPrint(null, tag, extra, true));
+                message.channel.send(event.fullPrint(null, tag, extra, true)).catch(err => this.bInf.log("Erreur lors d'un send getInfos event_center : " + err));
                 found = true;
                 return ;
             }
         });
         if (!found)
-            message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:");
+            message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:").catch(err => this.bInf.log("Erreur lors d'un send no Id event_center: " + err));
     }
 
     joinEvent(id, message, userAdd, tag)
@@ -127,11 +127,11 @@ class EventCenter
             {
                 let user = ((userAdd == null) ? message.author : userAdd);
                 event.join(user, message.channel.guild.id);
-                message.channel.send(((userAdd == null) ? "Vous avez" : ((tag) ? `**${userAdd}** à` : "**" + userAdd.username + "** à")) + " bien été **inscrit** à l'évènement ! \:smile:");
+                message.channel.send(((userAdd == null) ? "Vous avez" : ((tag) ? `**${userAdd}** à` : "**" + userAdd.username + "** à")) + " bien été **inscrit** à l'évènement ! \:smile:").catch(err => this.bInf.log("Erreur lors d'un send join event : " + err));
                 return ;
             }
         });
-        message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:");
+        message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:").catch(err => this.bInf.log("Erreur lors d'un send no Id event_center : " + err));
     }
 
     leaveEvent(id, message, userLeave, tag)
@@ -141,11 +141,11 @@ class EventCenter
             {
                 let user = ((userLeave == null) ? message.author : userLeave);
                 event.leave(user);
-                message.channel.send(((userLeave == null) ? "Vous avez" : ((tag) ? `**${userLeave}** à` : "**" + userLeave.username + "** à")) + " bien été **désinscrit** à l'évènement ! \:smile:");
+                message.channel.send(((userLeave == null) ? "Vous avez" : ((tag) ? `**${userLeave}** à` : "**" + userLeave.username + "** à")) + " bien été **désinscrit** à l'évènement ! \:smile:").catch(err => this.bInf.log("Erreur lors d'un send leaveEvent : " + err));
                 return ;
             }
         });
-        message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:");
+        message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:").catch(err => this.bInf.log("Erreur lors d'un send no Id event_center : " + err));
     }
 
     deleteEvent(id, message, auto)
@@ -164,29 +164,30 @@ class EventCenter
                 {
                     this.events.splice(i, 1);
                     if (!auto)
-                        message.channel.send("L'évènement à bien été **supprimé** ! \:smile:");
+                        message.channel.send("L'évènement à bien été **supprimé** ! \:smile:").catch(err => this.bInf.log("Erreur lors d'un send deleted event : " + err));
                     this.saveEvents();
                 }
                 else
-                    message.channel.send("Vous n'avez pas la **permission** de supprimer cet évènement \:thinking:");
+                    message.channel.send("Vous n'avez pas la **permission** de supprimer cet évènement \:thinking:").catch(err => this.bInf.log("Erreur lors d'un send no delete permission event_center : " + err));
                 found = true;
                 return ;
             }
         }
         if (!found)
-            message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:");
+            message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:").catch(err => this.bInf.log("Erreur lors d'un send no Id event_center: " + err));
     }
 
     checkNearEvents(extra)
     {
         var found = false;
         let nbrEvent = 0;
-        var now = null;
+        /*var now = null;
         var request = new XMLHttpRequest();
         request.open('GET', 'http://worldtimeapi.org/api/timezone/Europe/Paris', false);
         request.send(null);
         if (request.status === 200)
-            now = new BotDate().fromHTTP(request.responseText);
+            now = new BotDate().fromHTTP(request.responseText);*/
+        var now = new BotDate().fromDate(new Date().toString());
         
         this.events.forEach(event => {
             let eventGuild = extra.botInfos.guilds.find(bGuild => bGuild.id == event.guildId);
@@ -205,7 +206,7 @@ class EventCenter
                     {
                         let fromOrigin = ((eventGuild.id == bGuild.id) ? true : false);
                         
-                        if (bGuild.tag && nbrEvent == 1)
+                        if (bGuild.tag && nbrEvent == 1 && everyone != undefined)
                             bGuild.sendOnChannel(`${everyone}`, "events");
                         let intro = "Cet **évènement** à lieu " + ((diff == 0) ? "**maintenant**" : "dans **" + diff + "** minutes") + " ! Regardez s'il vous intéresse \:smile:";
                         bGuild.sendOnChannel(event.fullPrint(intro, bGuild.tag, extra, fromOrigin), "events");
@@ -223,10 +224,10 @@ class EventCenter
                 if (bGuild.blockedCmds.find(blockedCmd => blockedCmd.includes("vents") == true) == undefined)
                 {
                     if (bGuild.lastHourMsg != null)
-                        bGuild.lastHourMsg.delete().catch(err => console.log("Erreur lors de la suppression du dernier Message de Check : " + err));
+                        bGuild.lastHourMsg.delete().catch(err => extra.botInfos.log("Erreur lors de la suppression du dernier Message de Check : " + err));
                     let msg = "**Coucou tout le monde !** \:smiley:\n";
                     msg += "N'hésitez **pas** à faire un petit __**" + extra.botInfos.prefix + "event list**__ pour voir la liste des **évènements actuels**,\n";
-                    msg += "ou à faire un __**" + extra.botInfos.prefix + "event new**__ pour créer le votre ! \:smile:"
+                    msg += "ou à faire un __**" + extra.botInfos.prefix + "event new**__ pour créer le votre ! \:smile:";
                     bGuild.sendOnChannel(msg, "events");
                 }
             });

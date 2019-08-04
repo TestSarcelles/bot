@@ -36,8 +36,8 @@ var func = function (message, extra)
             .setFooter("Créé par IdCom4#8964");
         message.reply(" l'aide vous à été envoyée \:sunglasses:");
         message.channel.guild.member(message.author).createDM().then(function (channel) {
-            channel.send(help);
-        }).catch(err => extra.botInfos.log("Erreur lors du DM du cmd help : " + err));
+            channel.send(help).catch(err => extra.botInfos.log("Erreur lors d'un send cmd help : " + err));
+        }).catch(err => extra.botInfos.log("Erreur de la creation d'un DM : " + err));
         return (0);
     }
 
@@ -57,13 +57,13 @@ var func = function (message, extra)
         else
             help.addField("°", bCmds, true);
         help.setFooter("Créé par IdCom4#8964");
-        message.channel.send(help);
+        message.channel.send(help).catch(err => extra.botInfos.log("Erreur lors d'un send cmd list : " + err));
         return (0)
     }
 
     if (theCmd == undefined || toggle == undefined)
     {
-        message.channel.send("Mauvais format \:thinking:\nEx : **" + extra.botInfos.prefix + name + " commande __état__** (état = **on** ou **off**)");
+        message.channel.send("Mauvais format \:thinking:\nEx : **" + extra.botInfos.prefix + name + " commande __état__** (état = **on** ou **off**)").catch(err => extra.botInfos.log("Erreur lors d'un send cmd : " + err));
         return (0);
     }
     extra.commands.forEach(command => {
@@ -75,11 +75,11 @@ var func = function (message, extra)
     if (approve == false || (toggle != "on" && toggle != "off"))
     {
         if (approve == false && theCmd == "cmd")
-            message.channel.send("La commande **cmd** n'est pas soumise à elle même \:thinking:");
+            message.channel.send("La commande **cmd** n'est pas soumise à elle même \:thinking:").catch(err => extra.botInfos.log("Erreur lors d'un send ban : " + err));
         else if (approve == false)
-            message.channel.send("Cette commande n'existe pas \:thinking:");
+            message.channel.send("Cette commande n'existe pas \:thinking:").catch(err => extra.botInfos.log("Erreur lors d'un send cmd : " + err));
         else
-            message.channel.send("Mauvais état, **on** ou **off** attendu \:thinking:");
+            message.channel.send("Mauvais état, **on** ou **off** attendu \:thinking:").catch(err => extra.botInfos.log("Erreur lors d'un send cmd : " + err));
         return (0);
     }
     let bGuild = extra.guild_center.getGuild(message, "msg");
@@ -87,7 +87,7 @@ var func = function (message, extra)
     {
         if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == theCmd) == undefined)
             bGuild.blockedCmds.push(theCmd);
-        message.channel.send("La commande **" + theCmd + "** à bien été **désactivée** \:sunglasses:");
+        message.channel.send("La commande **" + theCmd + "** à bien été **désactivée** \:sunglasses:").catch(err => extra.botInfos.log("Erreur lors d'un send cmd : " + err));
     }
     else
     {
@@ -100,7 +100,7 @@ var func = function (message, extra)
                 break;
             }
         }
-        message.channel.send("La commande **" + theCmd + "** à bien été **activée** \:sunglasses:");
+        message.channel.send("La commande **" + theCmd + "** à bien été **activée** \:sunglasses:").catch(err => extra.botInfos.log("Erreur lors d'un send cmd : " + err));
     }
     extra.guild_center.saveGuilds();
     return (0);

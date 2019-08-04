@@ -41,7 +41,7 @@ var func = function (message, extra)
                         bGuild.defaultChannel.send(intro + "*" + msg + "*");
                 }
             });
-            message.delete();
+            message.delete().catch(err => botInfos.log("Erreur lors d'un msg.delete() p4 : " + err));
         }
         else
             message.channel.send("Vous n'avez pas donné de message \:thinking:");

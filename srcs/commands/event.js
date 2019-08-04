@@ -27,12 +27,13 @@ var func = function (message, extra)
     if (KW_id == 0)
     {
         var bGuild = extra.botInfos.guilds.find(bGuild => bGuild.id == message.member.guild.id);
-        var now = null;
+        /*var now = null;
         var request = new XMLHttpRequest();
         request.open('GET', 'http://worldtimeapi.org/api/timezone/Europe/Paris', false);
         request.send(null);
         if (request.status === 200)
-            now = new BotDate().fromHTTP(request.responseText);
+            now = new BotDate().fromHTTP(request.responseText);*/
+        var now = new BotDate().fromDate(new Date().toString());
         if (now == null)
             now = new BotDate().fromDate(new Date().toString());
         var date = new BotDate(message.content.split(" ")[2] + " " + message.content.split(" ")[3]);

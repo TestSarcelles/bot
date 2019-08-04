@@ -1,9 +1,10 @@
-const BotDate = require("./bot_date.js");
+const BotInfos = require("../bot_infos.js");
 
 class BotGuild
 {
     constructor()
     {
+        this.botInfos = new BotInfos();
         this.name = null;
         this.id = null;
         this.defaultChannel = null;
@@ -51,13 +52,13 @@ class BotGuild
     sendOnChannel(msg, channelName)
     {
         if (channelName == "events" && this.eventsChannel != null)
-            this.eventsChannel.send(msg);
+            this.eventsChannel.send(msg).catch(err => this.botInfos.log("Erreur lors d'un send sur eventChannel: " + err));
         else if (channelName == "games" && this.gamesChannel != null)
-            this.gamesChannel.send(msg);
+            this.gamesChannel.send(msg).catch(err => this.botInfos.log("Erreur lors d'un send sur gamesChannel : " + err));
         else if (channelName == "greetings" && this.greetingsChannel != null)
-            this.greetingsChannel.send(msg);
+            this.greetingsChannel.send(msg).catch(err => this.botInfos.log("Erreur lors d'un send sur greetingsChannel : " + err));
         else
-            this.defaultChannel.send(msg);
+            this.defaultChannel.send(msg).catch(err => this.botInfos.log("Erreur lors d'un send sur defaultChannel : " + err));
     }
 }
 

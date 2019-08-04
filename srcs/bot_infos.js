@@ -10,7 +10,7 @@ class BotInfos
         this.name = "OverLead";
         this.prefix = "$";
         this.activity = "Fill pour la team | " + this.prefix + "help";
-        this.token = "NjAzODg0MjE0NDQxNzM4MjQz.XUbDiA.46qMZ7x55HDZGgaDwdXgbe3XM3Y";
+        this.token = "NjAzODg0MjE0NDQxNzM4MjQz.XUMVbQ.dyRLOdKTovM9h8bLEhMr8-GaB64";
         this.heros = [
             "ana",
             "ashe",
@@ -37,7 +37,7 @@ class BotInfos
             "symmetra",
             "torbjorn",
             "tracer",
-            "widow",
+            "widowmaker",
             "winston",
             "hammond",
             "zarya",
@@ -75,7 +75,7 @@ class BotInfos
                     let msg = `Bonjour administateur **${member.user}**.\n`;
                     msg += message;
                     msg += "\n\n- OverLead";
-                    channel.send(msg);
+                    channel.send(msg).catch(err => this.log("Erreur lors d'un send : " + err));
                 }).catch(err => this.log("Erreur lors de l'envoi d'un DM à un administrateur : " + err));
             }
         });

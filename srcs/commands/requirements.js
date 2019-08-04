@@ -11,10 +11,10 @@ var func = function(message, extra)
         .setColor('#fcb268')
         .setTitle(`Voici la liste des prérequis :`)
         .setThumbnail("https://hostpic.xyz/files/15649181173532744656.jpg")
-        .addField("\t**Faire remonter le rôle de OverLead le Ménestrel tout en haut de la liste:**", "Sinon OverLead ne **pourra pas** gérer les **rôles**.", true)
-        .addField("\t**Avoir des Rôles discord correspondant aux rangs Blizzard :**", "(en anglais ou en français, peu importe)\nex : **Grand Maître** ou **Grand Master**", true)
-        .addField("\t**Désactiver les messages de bienvenue aléatoires:**", "Ce n'est pas **obligatoire** mais plus **propre**.", true);
-    message.channel.send(requirements);
+        .addField("\t**Faire remonter le rôle de OverLead le Ménestrel tout en haut de la liste des rôles:**", "Sinon OverLead ne **pourra pas** utiliser toutes ses **fonctionnalités**.", true)
+        .addField("\t**Avoir des Rôles discord correspondant aux rangs Blizzard : **(si la commande **ranks** est activée)", "(en anglais ou en français, peu importe)\nex : **Grand Maître** ou **Grand Master**", true)
+        .addField("\t**Désactiver les messages de bienvenue aléatoires:** (si la commande **greetings** est activée)", "Ce n'est pas **obligatoire** mais plus **propre**.", true);
+    message.channel.send(requirements).catch(err => extra.botInfos.log("Erreur lors de l'envoie des requirements : " + err));
     return (0);
 }
 
