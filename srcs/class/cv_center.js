@@ -91,7 +91,7 @@ class CvCenter
         let help = new Discord.RichEmbed()
             .setColor('#fcb268')
             .setTitle("Voici la liste des **options disponibles** pour la commande __**cv**__ :")
-            .setThumbnail("https://www.topdeguisements.com/530-tm_large_default/costume-d-inf-menestrel.jpg");
+            .setThumbnail("https://hostpic.xyz/files/15649181173532744656.jpg");
         this.keyWords.forEach(KW => {
             help.addField("**" + KW.name + "**", KW.description, true);
         }); 

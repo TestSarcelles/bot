@@ -26,9 +26,9 @@ var func = function (message, extra)
         let help = new Discord.RichEmbed()
             .setColor('#fcb268')
             .setTitle(`Voici la liste des **commandes désactivables** :`)
-            .setThumbnail("https://www.topdeguisements.com/530-tm_large_default/costume-d-inf-menestrel.jpg")
+            .setThumbnail("https://hostpic.xyz/files/15649181173532744656.jpg")
             .addField("Toutes les commandes listées dans le **" + extra.botInfos.prefix + "help**", "Exceptées évidemment de **help** et **cmd**.", true)
-            .addField("**checkEvents** :", "Si vous désactivez **checkEvents**, vous ne recevrez plus les **alertes** concernant les évènements **sur le point d'avoir lieux**.", true)
+            .addField("**checkEvents** :", "Si vous désactivez **checkEvents**, vous ne recevrez plus les **alertes** concernant les évènements **sur le point d'avoir lieu**.", true)
             .addField("**events** :", "Si vous désactivez **events**, en plus de ne plus pouvoir **utiliser la commande** vous ne recevrez plus les **nouveaux évènements d'autres serveurs**.", true)
             .addField("**puissance4** et **morpion** :", "Si vous désactivez ces commandes, vous ne pourrez plus **y jouer** avec les autres serveurs et **ne recevrez plus** les parties.", true)
             .addField("**ranks** :", "Si vous désactivez **ranks**, en plus de ne plus pouvoir **mettre à jour votre rang** quand vous le souhaitez, OverLead souhaitera **la bienvenue aux nouveaux membres de manière neutre**, sans mention des rangs Blizzard.", true)
@@ -47,7 +47,7 @@ var func = function (message, extra)
         let help = new Discord.RichEmbed()
             .setColor('#fcb268')
             .setTitle(`Voici la liste des commandes **que vous avez désactivé** :`)
-            .setThumbnail("https://www.topdeguisements.com/530-tm_large_default/costume-d-inf-menestrel.jpg");
+            .setThumbnail("https://hostpic.xyz/files/15649181173532744656.jpg");
         let bCmds = "";
         bGuild.blockedCmds.forEach(blockedCmd => {
             bCmds += "- **" + blockedCmd + "**\n";

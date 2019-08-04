@@ -105,7 +105,7 @@ class CV
         let cv = new Discord.RichEmbed()
             .setColor("#fcb268")
             .setTitle("**CV de __" + this.author.name + "__ :**")
-            .setThumbnail("https://www.topdeguisements.com/530-tm_large_default/costume-d-inf-menestrel.jpg");
+            .setThumbnail("https://hostpic.xyz/files/15649181173532744656.jpg");
         for (var info in this.infos)
         {
             if (info == "dispo")

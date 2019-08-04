@@ -9,8 +9,8 @@ class BotInfos
         this.creator = "IdCom4#8964";
         this.name = "OverLead";
         this.prefix = "$";
-        this.activity = "passer le balais ... | " + this.prefix + "help";
-        this.token = "NjAzODg0MjE0NDQxNzM4MjQz.XUXpng.o9NujRyP-YOFCCh53g3yiu4Cgkg";
+        this.activity = "Fill pour la team | " + this.prefix + "help";
+        this.token = "NjAzODg0MjE0NDQxNzM4MjQz.XUMVbQ.dyRLOdKTovM9h8bLEhMr8-GaB64";
         this.heros = [
             "ana",
             "ashe",

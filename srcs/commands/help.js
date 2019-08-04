@@ -10,7 +10,7 @@ var func = function(message, extra)
     let help = new Discord.RichEmbed()
         .setColor('#fcb268')
         .setTitle(`Voici la liste des commandes disponibles :`)
-        .setThumbnail("https://www.topdeguisements.com/530-tm_large_default/costume-d-inf-menestrel.jpg");
+        .setThumbnail("https://hostpic.xyz/files/15649181173532744656.jpg");
     for (var i = 0; i < extra.commands.length; i++)
     {
         if (extra.commands[i].description != "creator")
