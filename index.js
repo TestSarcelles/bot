@@ -119,7 +119,7 @@ bot.on('guildMemberAdd', function (member) {
     });
     if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "greetings") == undefined)
     {
-        const overWL = extra.emojis["overWL"];
+        const overWL = bot.emojis.get(extra.emojis["overWL"]);
         let greet = "Bienvenue sur **" + member.guild.name + `**, __**${member}**__ ! \:smiley:\n`;
         if (bGuild.greetings != null)
             greet += bGuild.greetings + "\n";

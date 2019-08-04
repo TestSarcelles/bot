@@ -68,7 +68,7 @@ class Morpion {
         this.print_plateau(extra, user, channel.guild.name);
         if (this.free_cases == 0)
         {
-            const bronze = extra.emojis["bronze"];
+            const bronze = extra.bot.emojis.get(extra.emojis["bronze"]);
             extra.botInfos.guilds.forEach(bGuild => {
                 if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "morpion") == undefined)
                     bGuild.sendOnChannel(`**Egalité** ... ${bronze}`, "games");
@@ -78,7 +78,7 @@ class Morpion {
         }
         if (this.isOver() > 0)
         {
-            const top500 = extra.emojis["top500"];
+            const top500 = extra.bot.emojis.get(extra.emojis["top500"]);
             extra.botInfos.guilds.forEach(bGuild => {
                 if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "morpion") == undefined)
                     bGuild.sendOnChannel("**Victoire** du joueur " + this.turn + ` ${top500}`, "games");

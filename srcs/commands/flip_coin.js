@@ -9,7 +9,7 @@ var func = function (message, extra)
     let channel = message.channel;
 
     let coin = Math.round(Math.random() * 10) % 2;
-    coin = extra.emojis[((coin == 0) ? "face_coin" : "pile_coin")];
+    coin = extra.bot.emojis.get(extra.emojis[((coin == 0) ? "face_coin" : "pile_coin")]);
     channel.send(`${coin}`);
 }
 
