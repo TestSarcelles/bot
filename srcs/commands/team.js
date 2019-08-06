@@ -81,7 +81,7 @@ var func = function (message, extra)
                             if (guild != undefined && (member = guild.members.find(mem => mem.user.id == cv.author.id)) != undefined)
                             {
                                 member.createDM().then(function(channel) {
-                                    let finalMsg = `Bonjour **${member.user}**,\n**${message.author}** du serveur **` + message.guild.name;
+                                    let finalMsg = `Bonjour **${member.user}**,\n` + + "**`" + message.author.username + "`** du serveur **" + message.guild.name;
                                     finalMsg += "** à mis à jour les **profils recherchés** de sa team, cela pourrait peut etre vous **correspondre**";
                                     finalMsg += " (*mettez votre **CV** en indisponible pour ne plus recevoir les **alertes***):\n";
                                     channel.send(finalMsg).catch(err => botInfos.log("Erreur lors de l'envoi d'une alerte team : " + err));
@@ -178,7 +178,7 @@ var func = function (message, extra)
         }
         member.createDM().then(function(channel) {
             let finalMsg = `Bonjour **${member.user}**,\n`;
-            finalMsg += `**${message.author}** du serveur **` + message.guild.name + "** vous a envoyé ce message en **réponse** à votre **Team** :\n\n";
+            finalMsg += "**`" + message.member.user + "`** du serveur **" + message.guild.name + "** vous a envoyé ce message en **réponse** à votre **Team** :\n\n";
             finalMsg += "*" + msg + "*\n\n";
             finalMsg += "- OverLead";
             channel.send(finalMsg).catch(err => botInfos.log("Erreur lors d'un MP à un proprietaire de Team : " + err));

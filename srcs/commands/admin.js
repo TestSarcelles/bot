@@ -18,7 +18,7 @@ var func = function (message, extra)
             found = true;
             member.createDM().then(function (channel) {
                 let msg = `Bonjour administateur **${member.user}**.\n`;
-                msg += `**${user}** du Refuge à quérit la présence d'une autorité pour la raison suivante :\n\n`;
+                msg += "**`" + user.username + "`** du Refuge à quérit la présence d'une autorité pour la raison suivante :\n\n";
                 msg += "*" + user_msg + "*\n\n- OverLead";
                 channel.send(msg).catch(err => extra.botInfos.log("Erreur lors d'un DM à un admin : " + err));
             }).catch(err => extra.botInfos.log("Erreur de la creation d'un DM à un admin : " + err));

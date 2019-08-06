@@ -137,7 +137,7 @@ var func = function (message, extra)
         }
         member.createDM().then(function(channel) {
             let finalMsg = `Bonjour **${member.user}**,\n`;
-            finalMsg += `**${message.author}** du serveur **` + message.guild.name + "** vous a envoyé ce message en **réponse** à votre **CV** :\n\n";
+            finalMsg += "**`" + message.member.user + "`** du serveur **" + message.guild.name + "** vous a envoyé ce message en **réponse** à votre **CV** :\n\n";
             finalMsg += "*" + msg + "*\n\n";
             finalMsg += "- OverLead";
             channel.send(finalMsg).catch(err => botInfos.log("Erreur lors d'un MP à un proprietaire de CV : " + err));
