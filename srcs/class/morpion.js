@@ -46,10 +46,7 @@ class Morpion {
         grid = grid + "°\n";
         extra.botInfos.guilds.forEach(bGuild => {
             if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "morpion") == undefined)
-            {
-                let intro = ((bGuild.tag) ? `${user}` : user.username);
-                bGuild.sendOnChannel(intro + " sur **" + guildName + "** à joué :\n" + grid, "games");
-            }
+                bGuild.sendOnChannel("`"+ user.username + "` sur **" + guildName + "** à joué :\n" + grid, "games");
         });
         //channel.send(grid)
     }

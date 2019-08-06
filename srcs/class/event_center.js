@@ -14,7 +14,7 @@ class EventCenter
         this.delimitor = ';';
         this.events = [];
         this.nextId = 0;
-        this.keyWords = ["new", "list", "infos", "join", "leave", "delete", "add", "remove", "help"];
+        this.keyWords = ["new", "list", "infos", "join", "leave", "delete", "add", "remove", "find", "help"];
         this.keyWordsDescription = [
             "Permet de créer **un évènement** en indiquant **new**, puis la __**date**__ et __**l'heure**__, ainsi que le __**titre**__ et la __**description**__, séparés par des __**" + this.delimitor + "**__.\nEx : **" + this.bInf.prefix + "event new __01/01/2019__ __21h__ " + this.delimitor + " __mon titre__ " + this.delimitor + " __ma description__**",
             "Permet de consulter la **liste des évènements en cours** en tapant **" + this.bInf.prefix + " event list**.",
@@ -23,7 +23,8 @@ class EventCenter
             "Permet **quitter** un évènement en tapant **" + this.bInf.prefix + "event leave __ID__** (**ID** = id de l'évènement).",
             "Permet **supprimer** un évènement en tapant **" + this.bInf.prefix + "event delete __ID__** (**ID** = id de l'évènement), __**si vous êtes son créateur ou au moins modérateur**__.",
             "Permet **d'ajouter manuellement** un joueur en tapant **" + this.bInf.prefix + "event add __ID__ __\@user__** (**ID** = id de l'évènement). (__**nécessite d'être au moins modérateur**__)",
-            "Permet **d'enlever manuellement** un joueur en tapant **" + this.bInf.prefix + "event remove __ID__ __\@user__** (**ID** = id de l'évènement). (__**nécessite d'être au moins modérateur**__)"
+            "Permet **d'enlever manuellement** un joueur en tapant **" + this.bInf.prefix + "event remove __ID__ __\@user__** (**ID** = id de l'évènement). (__**nécessite d'être au moins modérateur**__)",
+            "Permet **de rechercher un évènement** par mot clé en tapant **" + this.bInf.prefix + "event find __les mots clés__**."
         ];
         this.desc = "Les évènements sont en **commun avec tous les serveurs**, alors **n'hésitez pas** à vous inscrire et aller **rencontrer du monde** ! \:smile:";
         this.jsonEventsFile = path.join(__dirname, "..", "JSON", "events.json");
@@ -122,7 +123,8 @@ class EventCenter
 
     joinEvent(id, message, userAdd, tag)
     {
-        this.events.forEach(event => {
+        for (var event of this.events)
+        {
             if (event.id == id)
             {
                 let user = ((userAdd == null) ? message.author : userAdd);
@@ -130,13 +132,14 @@ class EventCenter
                 message.channel.send(((userAdd == null) ? "Vous avez" : ((tag) ? `**${userAdd}** à` : "**" + userAdd.username + "** à")) + " bien été **inscrit** à l'évènement ! \:smile:").catch(err => this.bInf.log("Erreur lors d'un send join event : " + err));
                 return ;
             }
-        });
+        }
         message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:").catch(err => this.bInf.log("Erreur lors d'un send no Id event_center : " + err));
     }
 
     leaveEvent(id, message, userLeave, tag)
     {
-        this.events.forEach(event => {
+        for (var event of this.events)
+        {
             if (event.id == id)
             {
                 let user = ((userLeave == null) ? message.author : userLeave);
@@ -144,7 +147,7 @@ class EventCenter
                 message.channel.send(((userLeave == null) ? "Vous avez" : ((tag) ? `**${userLeave}** à` : "**" + userLeave.username + "** à")) + " bien été **désinscrit** à l'évènement ! \:smile:").catch(err => this.bInf.log("Erreur lors d'un send leaveEvent : " + err));
                 return ;
             }
-        });
+        }
         message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:").catch(err => this.bInf.log("Erreur lors d'un send no Id event_center : " + err));
     }
 
@@ -202,7 +205,7 @@ class EventCenter
                 extra.botInfos.guilds.forEach(bGuild => {
                     var everyone = bGuild.roles.find(role => role.name === "@everyone");
                     //check for checkEvents && events at the same time
-                    if (bGuild.blockedCmds.find(blockedCmd => blockedCmd.includes("vents") == true) == undefined)
+                    if (bGuild.blockedCmds.find(blockedCmd => blockedCmd.includes("vent") == true) == undefined)
                     {
                         let fromOrigin = ((eventGuild.id == bGuild.id) ? true : false);
                         
@@ -221,7 +224,7 @@ class EventCenter
         {
             extra.botInfos.guilds.forEach(bGuild => {
                 //check for checkEvents && events at the same time
-                if (bGuild.blockedCmds.find(blockedCmd => blockedCmd.includes("vents") == true) == undefined)
+                if (bGuild.blockedCmds.find(blockedCmd => blockedCmd.includes("vent") == true) == undefined)
                 {
                     if (bGuild.lastHourMsg != null)
                         bGuild.lastHourMsg.delete().catch(err => extra.botInfos.log("Erreur lors de la suppression du dernier Message de Check : " + err));

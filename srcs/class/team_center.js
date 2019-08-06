@@ -112,7 +112,7 @@ class TeamCenter
         else
             channel.send("Voici la liste des **" + this.teams.length + "** Teams actuelles :");
         this.teams.forEach(team => {
-            channel.send(team.print(extra.bot.guilds, tag));
+            channel.send(team.print());
         });
     }
 
@@ -174,7 +174,7 @@ class TeamCenter
             }
             if (match)
             {
-                channel.send(team.print(extra.bot.guilds, tag));
+                channel.send(team.print());
                 found = true;
             }
         });

@@ -32,16 +32,10 @@ var func = function (message, extra)
         if (msg != undefined)
         {
             extra.botInfos.guilds.forEach(bGuild => {
-                if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "morpion") == undefined)
-                {
-                    let intro = ((bGuild.tag) ? `**${message.author}` : "**" + message.author.username) + "** sur **" + message.channel.guild.name + "** dit :\n";
-                    if (bGuild.gamesChannel != null)
-                        bGuild.gamesChannel.send(intro + "*" + msg + "*");
-                    else
-                        bGuild.defaultChannel.send(intro + "*" + msg + "*");
-                }
+                if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "puissance4") == undefined)
+                    bGuild.sendOnChannel("**`" + message.author.username + "`** sur **" + message.channel.guild.name + "** dit :\n" + "*" + msg + "*", "games");
             });
-            message.delete().catch(err => botInfos.log("Erreur lors d'un msg.delete() p4 : " + err));
+            message.delete().catch(err => extra.botInfos.log("Erreur lors d'un msg.delete() p4 : " + err));
         }
         else
             message.channel.send("Vous n'avez pas donné de message \:thinking:");
@@ -49,7 +43,7 @@ var func = function (message, extra)
     }
     if (isNaN(pos))
     {
-        channel.send("Mauvais format de coordonnées \:thinking:\nEx: **" + botInfos.prefix + "puissance4 x**  (compris entre 1 et 7)");
+        channel.send("Mauvais format de coordonnées \:thinking:\nEx: **" + extra.botInfos.prefix + "puissance4 x**  (compris entre 1 et 7)");
         return (0);
     }
     if (extra.power4.put_power(pos, channel, extra, message.author) <= 0)

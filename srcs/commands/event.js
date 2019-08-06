@@ -134,6 +134,36 @@ var func = function (message, extra)
             extra.event_center.leaveEvent(id, message, message.mentions.users.first(), extra.guild_center.getGuild(message.member.guild, "g").tag);
     }
     if (KW_id == 8)
+    {
+        var searchKeyWords = message.content.substring(extra.botInfos.prefix.length + name.length + 6);
+        if (searchKeyWords.length == 0)
+        {
+            message.channel.send("Vous ne m'avez pas précisé de **mots clés** \:thinking:");
+            return (0);
+        }
+        searchKeyWords = searchKeyWords.toLowerCase().split(" ");
+        message.channel.send("Voici la **liste des évènements correspondants** à votre recherche :").catch(err => extra.botInfos.log("Erreur lors d'un send event : " + err));
+        let nbr_found = 0;
+        extra.event_center.events.forEach(event => {
+            let found = true;
+            for (var skw of searchKeyWords)
+            {
+                if (!event.title.toLowerCase().includes(skw) && !event.description.toLowerCase().includes(skw))
+                {
+                    found = false;
+                    break ;
+                }
+            }
+            if (found)
+            {
+                message.channel.send(event.lightPrint()).catch(err => extra.botInfos.log("Erreur lors d'un event find : " + err));
+                nbr_found += 1;
+            }
+        });
+        if (nbr_found == 0)
+            message.channel.send("Aucun **évènement** ne correspond à votre recherche.").catch(err => extra.botInfos.log("Erreur lors d'un send event : " + err));
+    }
+    if (KW_id == 9)
         extra.event_center.showHelp(message);
     return (0);
 }

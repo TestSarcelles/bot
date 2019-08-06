@@ -33,6 +33,7 @@ var func = function (message, extra)
             .addField("**puissance4** et **morpion** :", "Si vous désactivez ces commandes, vous ne pourrez plus **y jouer** avec les autres serveurs et **ne recevrez plus** les parties.", true)
             .addField("**ranks** :", "Si vous désactivez **ranks**, en plus de ne plus pouvoir **mettre à jour votre rang** quand vous le souhaitez, OverLead souhaitera **la bienvenue aux nouveaux membres de manière neutre**, sans mention des rangs Blizzard.", true)
             .addField("**greetings** :", "Si vous désactivez **greetings**, OverLead ne **souhaitera plus la bienvenue** aux nouveaux membres.", true)
+            .addField("**leave** :", "Si vous désactivez **leave**, OverLead ne **notifiera plus les départs** du serveur.", true)
             .setFooter("Créé par IdCom4#8964");
         message.reply(" l'aide vous à été envoyée \:sunglasses:");
         message.channel.guild.member(message.author).createDM().then(function (channel) {
@@ -70,7 +71,7 @@ var func = function (message, extra)
         if (command.name == theCmd && command.name != "cmd")
             approve = true;
     });
-    if (theCmd == "checkEvents" || theCmd == "greetings")
+    if (theCmd == "checkEvents" || theCmd == "leave")
         approve = true;
     if (approve == false || (toggle != "on" && toggle != "off"))
     {

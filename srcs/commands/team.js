@@ -85,7 +85,7 @@ var func = function (message, extra)
                                     finalMsg += "** à mis à jour les **profils recherchés** de sa team, cela pourrait peut etre vous **correspondre**";
                                     finalMsg += " (*mettez votre **CV** en indisponible pour ne plus recevoir les **alertes***):\n";
                                     channel.send(finalMsg).catch(err => botInfos.log("Erreur lors de l'envoi d'une alerte team : " + err));
-                                    channel.send(team.print(extra.bot.guilds, true)).catch(err => botInfos.log("Erreur lors de l'envoi d'une alerte team : " + err));
+                                    channel.send(team.print()).catch(err => botInfos.log("Erreur lors de l'envoi d'une alerte team : " + err));
                                 }).catch(err => botInfos.log("Erreur lors de la creation d'un MP : " + err));
                             }
                         }
@@ -197,7 +197,7 @@ var func = function (message, extra)
         if (team == undefined)
             message.reply(" cette personne n'a actuellement pas de **Team**.");
         else
-            message.reply(team.print(extra.bot.guilds, extra.botInfos.guilds.find(bGuild => bGuild.id == message.channel.guild.id).tag));
+            message.reply(team.print());
         return (0);
     }
     return (0);

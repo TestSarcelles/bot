@@ -138,6 +138,14 @@ bot.on('guildMemberAdd', function (member) {
     }
 });
 
+bot.on('guildMemberRemove', function (member) {
+    let bGuild = guild_center.getGuild(member, "mem");
+    if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "leave") == undefined)
+    {
+        bGuild.defaultChannel.send(`${member.user} nous à **quitté**. R.I.P \:cry:`).catch(err => botInfos.log("Erreur lors d'un leave : " + err));
+    }
+});
+
 
 bot.on('message', function (message) {
     //if ((message.member == null || message.member.user.bot) && message.content.includes("**Amuse toi bien !** \:smile:"))

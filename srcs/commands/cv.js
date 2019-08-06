@@ -156,7 +156,7 @@ var func = function (message, extra)
         if (cv == undefined)
             message.reply(" cette personne n'a actuellement pas de **CV**.");
         else
-            message.reply(cv.print(extra.bot.guilds, extra.botInfos.guilds.find(bGuild => bGuild.id == message.channel.guild.id).tag));
+            message.reply(cv.print());
         return (0);
     }
     return (0);

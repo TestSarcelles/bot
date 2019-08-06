@@ -33,13 +33,7 @@ var func = function (message, extra)
         {
             extra.botInfos.guilds.forEach(bGuild => {
                 if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "morpion") == undefined)
-                {
-                    let intro = ((bGuild.tag) ? `**${message.author}` : "**" + message.author.username) + "** sur **" + message.channel.guild.name + "** dit :\n";
-                    if (bGuild.gamesChannel != null)
-                        bGuild.gamesChannel.send(intro + "*" + msg + "*");
-                    else
-                        bGuild.defaultChannel.send(intro + "*" + msg + "*");
-                }
+                    bGuild.sendOnChannel("**`" + message.author.username + "`** sur **" + message.channel.guild.name + "** dit :\n" + "*" + msg + "*", "games");
             });
             message.delete().catch(err => botInfos.log("Erreur lors d'un msg.delete() morpion : " + err));
         }

@@ -90,21 +90,11 @@ class CV
         return (" la **disponibilité** de votre **CV** à bien été mise à jour ! \:sunglasses:");
     }
 
-    print(guilds, tag)
+    print()
     {
-        let name;
-        let guild;
-        if (tag && (guild = guilds.find(gld => gld.id == this.author.guildId)) != undefined)
-        {
-            let member = guild.members.find(member => member.user.id == this.author.id);
-            if (member != undefined)
-                name = `${member.user}`;
-        }
-        if (name == undefined)
-            name = this.author.name;
         let cv = new Discord.RichEmbed()
             .setColor("#fcb268")
-            .setTitle("**CV de __" + this.author.name + "__ :**")
+            .setTitle("**CV de __`" + this.author.name + "`__ :**")
             .setThumbnail("https://hostpic.xyz/files/15649181173532744656.jpg");
         for (var info in this.infos)
         {

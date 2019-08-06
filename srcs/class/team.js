@@ -109,18 +109,8 @@ class Team
         return (" la liste de **profils recherchés** de votre **team** à bien été mise à jour ! \:sunglasses:");
     }
 
-    print(guilds, tag)
+    print()
     {
-        let name;
-        let guild;
-        if (tag && (guild = guilds.find(gld => gld.id == this.author.guildId)) != undefined)
-        {
-            let member = guild.members.find(member => member.user.id == this.author.id);
-            if (member != undefined)
-                name = `${member.user}`;
-        }
-        if (name == undefined)
-            name = this.author.name;
         let team = new Discord.RichEmbed()
             .setColor("#fcb268")
             .setTitle("__**" + this.infos["name"] + "**__")

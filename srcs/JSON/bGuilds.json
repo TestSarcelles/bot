@@ -1,1 +1,24 @@
-null
+[
+  {
+    "id": "603891355651145739",
+    "tag": false,
+    "defaultChannelId": "603891356175302657",
+    "eventsChannelId": null,
+    "gamesChannelId": null,
+    "greetingsChannelId": null,
+    "blockedCmds": [
+      "event"
+    ],
+    "greetings": null
+  },
+  {
+    "id": "605514935128031242",
+    "tag": false,
+    "defaultChannelId": "605514935958765569",
+    "eventsChannelId": null,
+    "gamesChannelId": null,
+    "greetingsChannelId": null,
+    "blockedCmds": [],
+    "greetings": null
+  }
+]

@@ -53,15 +53,10 @@ class Event
                 let lUbGuild = extra.botInfos.guilds.find(bGuild => bGuild.id == lightUser.guildId);
                 let member;
                 if (lUbGuild == undefined)
-                {
-                    if (tag)
-                        member = {user: "John Doe"};
-                    else
-                        member = {user: {username: "John Doe"}};
-                }
+                    member = {user: {username: "John Doe"}};
                 else
                     member = lUbGuild.members.find(member => member.user.id == lightUser.id);
-                engagedUsers += "- **" + ((tag) ? `${member.user}` : member.user.username) + "**\n";
+                engagedUsers += "- `" + member.user.username + "`\n";
             });
         }
         let msg = new Discord.RichEmbed()

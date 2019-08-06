@@ -113,7 +113,7 @@ class CvCenter
         else
             channel.send("Voici la liste des **" + this.cvs.length + "** CV actuels :").catch(err => this.bInf.log("Erreur lors d'un send cv_center : " + err));
         this.cvs.forEach(cv => {
-            channel.send(cv.print(extra.bot.guilds, tag).catch(err => this.bInf.log("Erreur lors du send list cv_center : " + err)));
+            channel.send(cv.print()).catch(err => this.bInf.log("Erreur lors du send list cv_center : " + err));
         });
     }
 
@@ -164,7 +164,7 @@ class CvCenter
         channel.send("Voici le **résultat** de votre recherche :").catch(err => this.bInf.log("Erreur lors d'un send cv_center : " + err));
         let matchingCvs = this.findCvs(criterias);
         matchingCvs.forEach(cv => {
-            channel.send(cv.print(extra.bot.guilds, tag))
+            channel.send(cv.print())
         });
         if (matchingCvs.length == 0)
             channel.send("Aucun **CV** ne correspond à votre recherche.").catch(err => this.bInf.log("Erreur lors d'un send cv_center : " + err));
