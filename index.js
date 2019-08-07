@@ -48,19 +48,22 @@ bot.on("ready", () => {
     team_center.loadTeams();
     guild_center.setStartGuilds(bot.guilds);
     bot.user.setActivity(botInfos.activity);
-    //let msg = "Je suis opérationnel et **mis à jour**, faites un petit __**" + botInfos.prefix + "help**__ pour voir les **nouveautés** \:sunglasses:\n"
-    //guild_center.sendAllGuildsMsg(msg);
     task.start();
     saveEvents.start();
 });
 
 bot.on("guildCreate", guild => {
+    const top500 = bot.emojis.get(extra.emojis["top500"]);
     guild_center.addGuild(guild);
-    let msg = "Bonjour tout le monde ! Je m'appelle **OverLead**, pour vous servir \:heart:\n";
+    let msg = "Bonjour tout le monde ! Je m'appelle **OverLead**, pour vous servir " + `${top500}` + "\n";
     msg += "Faites un petit **" + botInfos.prefix + "help** pour prendre connaissance de ce que **je peux faire** ! \:sunglasses:\n";
     msg += "Pour les administrateurs/modérateurs, faites également un petit **" + botInfos.prefix + "requirements** pour être sûr d'avoir tout ce dont j'ai **besoin** pour fonctionner **au poil** \:wink:\n";
     msg += "ainsi qu'un **" + botInfos.prefix + "help** pour configurer le __**tag**__.";
     guild_center.getGuild(guild, "g").defaultChannel.send(msg).catch(err => botInfos.log("Erreur lors de l'invitation du bot : " + err));
+});
+
+bot.on("guildDelete", guild => {
+    guild_center.saveGuilds();
 });
 
 function get_command(command)
@@ -145,9 +148,7 @@ bot.on('guildMemberAdd', function (member) {
 bot.on('guildMemberRemove', function (member) {
     let bGuild = guild_center.getGuild(member, "mem");
     if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "leave") == undefined)
-    {
-        bGuild.defaultChannel.send(`${member.user} nous à **quitté**. R.I.P \:cry:`).catch(err => botInfos.log("Erreur lors d'un leave : " + err));
-    }
+        bGuild.sendOnChannel(`${member.user} nous à **quitté**. R.I.P \:cry:`, "greetings");
 });
 
 

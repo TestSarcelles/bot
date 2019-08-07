@@ -232,6 +232,7 @@ class EventCenter
                         bGuild.lastHourMsg.delete().catch(err => extra.botInfos.log("Erreur lors de la suppression du dernier Message de Check : " + err));
                     let msg = "**Coucou tout le monde !** \:smiley:\n";
                     msg += "N'hésitez **pas** à faire un petit __**" + extra.botInfos.prefix + "event list**__ pour voir la liste des **évènements actuels**,\n";
+                    msg += "__**" + extra.botInfos.prefix + "event find**__ pour faire une **recherche** personnalisée,\n";
                     msg += "ou à faire un __**" + extra.botInfos.prefix + "event new**__ pour créer le votre ! \:smile:";
                     bGuild.sendOnChannel(msg, "events");
                 }

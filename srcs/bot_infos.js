@@ -10,7 +10,7 @@ class BotInfos
         this.name = "OverLead";
         this.prefix = "$";
         this.activity = "Fill pour la team | " + this.prefix + "help";
-        this.token = "NjAzODg0MjE0NDQxNzM4MjQz.XUMVbQ.dyRLOdKTovM9h8bLEhMr8-GaB64";
+        this.token = "NjA0MDc3MzMzMjU0NzY2NjMy.XUBscg.hSgw8M7TyTBSC3jUB-4Z-UhRslk";
         this.heros = [
             "ana",
             "ashe",
