@@ -50,14 +50,14 @@ var func = function (message, extra)
         var field = message.content.split(" ")[2];
         if (field == undefined || extra.team_center.checkField(field) == -1)
         {
-            message.reply(" mauvais field, voici la liste des **fields** disponibles :\n" + extra.team_center.getFields());
+            message.reply(" mauvais champs, voici la liste des **champs** disponibles :\n" + extra.team_center.getFields());
             return (0);
         }
         var value = message.content.substring(botInfos.prefix.length + name.length + 5 + field.length + 1);
         //var value = message.content.substring(botInfos.prefix.length);
         if (value.length == 0)
         {
-            message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "team set field __value__** attendu.");
+            message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "team set champs __valeur__** attendu.");
             return (0);
         }
         var team = extra.team_center.getTeam(message.author);
@@ -81,7 +81,7 @@ var func = function (message, extra)
                             if (guild != undefined && (member = guild.members.find(mem => mem.user.id == cv.author.id)) != undefined)
                             {
                                 member.createDM().then(function(channel) {
-                                    let finalMsg = `Bonjour **${member.user}**,\n` + + "**`" + message.author.username + "`** du serveur **" + message.guild.name;
+                                    let finalMsg = `Bonjour **${member.user}**,\n` + "**`" + message.author.username + "`** du serveur **" + message.guild.name;
                                     finalMsg += "** à mis à jour les **profils recherchés** de sa team, cela pourrait peut etre vous **correspondre**";
                                     finalMsg += " (*mettez votre **CV** en indisponible pour ne plus recevoir les **alertes***):\n";
                                     channel.send(finalMsg).catch(err => botInfos.log("Erreur lors de l'envoi d'une alerte team : " + err));
@@ -114,7 +114,7 @@ var func = function (message, extra)
         let search = message.content.substring(botInfos.prefix.length + name.length + 6);
         if (search.length == 0)
         {
-            message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "team find __field__:__value__ ; ect ...** attendu (au moins une paire **field:value**, séparées par des **;** s'il y en a plusieurs).");
+            message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "team find __champs__:__valeur__ ; ect ...** attendu (au moins une paire **champs:valeur**, séparées par des **;** s'il y en a plusieurs).");
             return (0);
         }
         search = search.split(delimitor);
@@ -133,13 +133,13 @@ var func = function (message, extra)
                 let expr = _field + ":" + _value;
                 if (!expr.match(/((name|rank|description|objectifs|new|role|heros):(\w.*))/))
                 {
-                    message.reply(" mauvais fields.\nVoici les **fields** de recherche disponibles :\n- **name**\n- **rank**\n- **description**\n- **objectifs**\n- **new**\n- **role**\n- **heros**");
+                    message.reply(" mauvais champs.\nVoici les **champs** de recherche disponibles :\n- **name**\n- **rank**\n- **description**\n- **objectifs**\n- **new**\n- **role**\n- **heros**");
                     return (0);
                 }
             }
             if (!goodFormat)
             {
-                message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "team find __field__:__value__ ; ect ...** attendu (au moins une paire **field:value**).");
+                message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "team find __champs__:__valeur__ ; ect ...** attendu (au moins une paire **champs:valeur**).");
                 return (0);
             }
             criterias.push({field: _field, value: _value});

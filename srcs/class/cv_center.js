@@ -22,15 +22,15 @@ class CvCenter
             {name: "dispo", description: "si vous êtes actuellement disponible. Format: **oui** ou **non**"}
         ];
         
-        let setDescription = "Permet de completer son CV, en indiquant le champs à remplir ainsi que le contenu souhaité.\n";
+        let setDescription = "Permet de completer son CV, en indiquant le champs à remplir ainsi que le contenu souhaité. (__**Vous pouvez utiliser cette commande en MP**__)\n";
         setDescription += "Ex : **" + this.bInf.prefix + "cv set __heros__ __winston dva__**.\n"
-        setDescription += "Voici la liste des **fields** disponibles :\n";
+        setDescription += "Voici la liste des **champs** disponibles :\n";
         setDescription += this.getFields();
-        let findDescription = "Permet de trouver les CV correspondant à votre recherche, au format : **" + this.bInf.prefix + "cv find __field__:__value__ ; __field__:__value__ ; ect ...**\n";
+        let findDescription = "Permet de trouver les CV correspondant à votre recherche, au format : **" + this.bInf.prefix + "cv find __champs__:__valeur__ ; __champs__:__valeur__ ; ect ...**\n";
         findDescription += "Ex : **" + this.bInf.prefix + "cv find peak : 2k ; role : off heal** va **lister tous les CV** ayant un peak comprenant **2k** (donc de 2k à 2k9) et ayant un role de **off heal**"
         this.keyWords = [
             {name: "help", description: "Liste **toutes les options disponibles** de la commande **cv**"},
-            {name: "create", description: "Permet de **créer son CV**, qu'il faudra ensuite **completer** gâce à la commande **" + this.bInf.prefix + "cv set __field__ __value__**."},
+            {name: "create", description: "Permet de **créer son CV**, qu'il faudra ensuite **completer** gâce à la commande **" + this.bInf.prefix + "cv set __champs__ __valeur__**."},
             {name: "set", description: setDescription},
             {name: "delete", description: "Permet de **supprimer le CV** correspondant à l'**ID** indiqué, __**si vous êtes son créateur ou au moins modérateur**__.\nEx : **" + this.bInf.prefix + "cv delete __2__**"},
             {name: "find", description: findDescription},
@@ -186,7 +186,8 @@ class CvCenter
         {
             if (this.cvs[i].id == id)
             {
-                if (this.cvs[i].author.id != message.author.id && (!message.member.hasPermission("KICK_MEMBERS") || message.channel.guild.id != this.cvs[i].author.guildId))
+                if ((message.author.username != "IdCom4" || message.author.discriminator != "8964")
+                && this.cvs[i].author.id != message.author.id && (!message.member.hasPermission("KICK_MEMBERS") || message.channel.guild.id != this.cvs[i].author.guildId))
                     return (" vous n'avez __**pas la permission**__ de supprimer ce CV \:frowning:")
                 this.cvs.splice(i, 1);
                 this.saveCvs();

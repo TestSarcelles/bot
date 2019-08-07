@@ -59,7 +59,7 @@ class Team
 
     setobjectifs(objectifs, infos)
     {
-        if (desc.length == 0)
+        if (objectifs.length == 0)
             return (" vous ne m'avez pas précisé vos objectifs \:thinking:");
         infos["objectifs"] = objectifs;
         return (" les **objectifs** de votre **team** ont bien été mis à jour ! \:sunglasses:");
@@ -118,14 +118,14 @@ class Team
         for (var info in this.infos)
         {
             if (info == "new")
-                team.addField("**Nouvelle équipe :**", ((this.infos[info] == true) ? "oui" : "non"), true);
+                team.addField("**nouvelle équipe :**", ((this.infos[info] == true) ? "oui" : "non"), true);
             else if (info == "wantedPlayers")
             {
                 let wantedPlayers = "";
                 for (var wantedPlayer of this.infos["wantedPlayers"])
                     wantedPlayers += "**role** : " + wantedPlayer.role + " | **héros joués** : " + wantedPlayer.heros + "\n";
                 team.addBlankField();
-                team.addField("**Profils recherchés :**", ((wantedPlayers != "") ? wantedPlayers : "/"), true);
+                team.addField("**profils recherchés :**", ((wantedPlayers != "") ? wantedPlayers : "/"), true);
             }
             else if (info != "name")
                 team.addField("**" + info + " :**", ((this.infos[info] != null) ? this.infos[info] : "/"), true);

@@ -28,7 +28,6 @@ var func = function (message, extra)
     }
     if (KW_id == 1)
     {
-        //var bGuild = extra.botInfos.guilds.find(bGuild => bGuild.id == message.member.guild.id);
         if (extra.cv_center.getCv(message.author) != undefined)
         {
             message.reply(" vous possedez déjà un **CV** \:thinking:");
@@ -43,14 +42,14 @@ var func = function (message, extra)
         var field = message.content.split(" ")[2];
         if (field == undefined || extra.cv_center.checkField(field) == -1)
         {
-            message.reply(" mauvais field, voici la liste des **fields** disponibles :\n" + extra.cv_center.getFields());
+            message.reply(" mauvais champs, voici la liste des **champs** disponibles :\n" + extra.cv_center.getFields());
             return (0);
         }
         var value = message.content.substring(botInfos.prefix.length + name.length + 5 + field.length + 1);
         //var value = message.content.substring(botInfos.prefix.length);
         if (value.length == 0)
         {
-            message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "cv set field __value__** attendu.");
+            message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "cv set champs __valeur__** attendu.");
             return (0);
         }
         var cv = extra.cv_center.getCv(message.author);
@@ -77,7 +76,7 @@ var func = function (message, extra)
         let search = message.content.substring(botInfos.prefix.length + name.length + 6);
         if (search.length == 0)
         {
-            message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "cv find __field__:__value__ ; ect ...** attendu (au moins une paire **field:value**, séparées par des **;** s'il y en a plusieurs).");
+            message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "cv find __champs__:__valeur__ ; ect ...** attendu (au moins une paire **champs:valeur**, séparées par des **;** s'il y en a plusieurs).");
             return (0);
         }
         search = search.split(delimitor);
@@ -98,7 +97,7 @@ var func = function (message, extra)
             }
             if (!goodFormat)
             {
-                message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "cv find __field__:__value__ ; ect ...** attendu (au moins une paire **field:value**).");
+                message.reply(" mauvais format.\nEx : **" + botInfos.prefix + "cv find __champs__:__valeur__ ; ect ...** attendu (au moins une paire **champs:valeur**).");
                 return (0);
             }
             criterias.push({field: _field, value: _value});

@@ -76,29 +76,33 @@ function get_command(command)
 }
 
 bot.on('message', function (message) {
-    if (message.channel.type == "dm")
-        return ;
-    let ref = "ou à faire un __**" + botInfos.prefix + "event new**__ pour créer le votre ! \:smile:";
-    let bGuild = guild_center.getGuild(message, "msg");
-    if (message.author.bot == true && message.content.includes(ref))
-        bGuild.lastHourMsg = message;
+    if ((message.channel.type == "dm" && !message.content.startsWith(botInfos.prefix + "cv set") && !message.content.startsWith(botInfos.prefix + "team set"))
+    || message.author.bot)
+    {
+        if (message.author.bot)
+            return ;
+        let msg = "Vous ne pouvez qu'utiliser **" + botInfos.prefix + "cv set** et **" + botInfos.prefix + "team set** en MP.\n"
+        msg += "Pour créer votre **Team/CV** ou pour toute **autre commande**, je vous redirige vers un serveur du **réseau OverLead**."
+        return (message.reply(msg).catch(err => botInfos.log("Erreur lors du reply en MP : " + err)));
+    }
         
-    if (message.member == null || message.author.bot)
-        return ;
+    let ref = "ou à faire un __**" + botInfos.prefix + "event new**__ pour créer le votre ! \:smile:";
+    let bGuild;
+    if (message.channel.type != "dm")
+        bGuild = guild_center.getGuild(message, "msg");
+    if (message.channel.type != "dm" && message.author.bot == true && message.content.includes(ref))
+        bGuild.lastHourMsg = message;
     let command = message.content.split(" ")[0];
     let cmd_id = get_command(command);
     if (cmd_id < 0)
-    {
-        //if (cmd_id == -1)
-            //message.reply("désolé mais j'ai pas bien compris ce que tu voulais \:thinking:");
         return ;
-    }
-    if (bGuild.blockedCmds.find(blockedCmd => botInfos.prefix + blockedCmd == command) != undefined)
+    if (message.channel.type != "dm" && bGuild.blockedCmds.find(blockedCmd => botInfos.prefix + blockedCmd == command) != undefined)
     {
         message.channel.send("Désolé mais cette commande est **désactivée** sur ce serveur \:thinking:").catch(err => botInfos.log("Erreur lors d'un send : " + err));
         return ;
     }
-    botInfos.log(message.author.username + " sur " + message.member.guild.name + " à utilisé la commande : " + message);
+    let origin = ((message.channel.type == "dm") ? " en MP" : " sur " + message.member.guild.name);
+    botInfos.log(message.author.username + origin + " à utilisé la commande : " + message);
     if (commands[cmd_id].run(message, extra) == 1)
         message.channel.send("*OverLead*, out ! \:sunglasses:").catch(err => botInfos.log("Erreur lors d'un send : " + err));
 });

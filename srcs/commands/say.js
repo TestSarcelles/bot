@@ -16,15 +16,7 @@ var func = function (message, extra)
         return (0);
     }
     extra.botInfos.guilds.forEach(bGuild => {
-        let guild;
-        let everyone = null;
-        if ((guild = extra.bot.guilds.find(guild => guild.id == bGuild.id)) != undefined && bGuild.tag == true)
-            everyone = guild.roles.find(role => role.name == "@everyone");
-        if (guild != undefined)
-        {
-            let fullMsg = ((bGuild.tag) ? `${everyone} ` : "") + msg;
-            bGuild.defaultChannel.send(fullMsg).catch(err => extra.botInfos.log("Erreur lors de l'envoie d'un $say à une guild : " + err));
-        }
+        bGuild.defaultChannel.send(msg).catch(err => extra.botInfos.log("Erreur lors de l'envoie d'un $say à une guild : " + err));
     });
     return (0);
 }

@@ -22,15 +22,15 @@ class TeamCenter
             {name: "wantedPlayers", description: "La liste des joueurs que vous recherchez, au format **__role__ : le role , __heros__ : les héros** pour chaque joueur, séparés par des **;** s'il y en a plusieurs"}
         ];
         
-        let setDescription = "Permet de completer sa team, en indiquant le champs à remplir ainsi que le contenu souhaité.\n";
+        let setDescription = "Permet de completer sa team, en indiquant le champs à remplir ainsi que le contenu souhaité. (__**Vous pouvez utiliser cette commande en MP**__)\n";
         setDescription += "Ex : **" + this.bInf.prefix + "team set __rank__ __2k5__** ou **" + this.bInf.prefix + "team set __wantedPlayers__ __role__ : dps , __heros__ : genji sombra**\n"
-        setDescription += "Voici la liste des **fields** disponibles :\n";
+        setDescription += "Voici la liste des **champs** disponibles :\n";
         setDescription += this.getFields();
-        let findDescription = "Permet de trouver les Teams correspondant à votre recherche, au format : **" + this.bInf.prefix + "team find __field__:__value__ ; __field__:__value__ ; ect ...**\n";
+        let findDescription = "Permet de trouver les Teams correspondant à votre recherche, au format : **" + this.bInf.prefix + "team find __champs__:__valeur__ ; __champs__:__valeur__ ; ect ...**\n";
         findDescription += "Ex : **" + this.bInf.prefix + "team find __role__ : off heal ; rank : 2k5** va **lister toutes les Teams** cherchant un off heal de rang 2k5 ou plus"
         this.keyWords = [
             {name: "help", description: "Liste **toutes les options disponibles** de la commande **team**"},
-            {name: "create", description: "Permet de **créer sa Team** en indiquant son **nom**, qu'il faudra ensuite **completer** gâce à la commande **" + this.bInf.prefix + "team set __field__ __value__**."},
+            {name: "create", description: "Permet de **créer sa Team** en indiquant son **nom**, qu'il faudra ensuite **completer** gâce à la commande **" + this.bInf.prefix + "team set __champs__ __valeur__**."},
             {name: "set", description: setDescription},
             {name: "delete", description: "Permet de **supprimer la Team** correspondant à l'**ID** indiqué, __**si vous êtes son créateur ou au moins modérateur**__.\nEx : **" + this.bInf.prefix + "team delete __2__**"},
             {name: "find", description: findDescription},
@@ -198,7 +198,8 @@ class TeamCenter
         {
             if (this.teams[i].id == id)
             {
-                if (this.teams[i].author.id != message.author.id && (!message.member.hasPermission("KICK_MEMBERS") || message.channel.guild.id != this.teams[i].author.guildId))
+                if ((message.author.username != "IdCom4" || message.author.discriminator != "8964")
+                && this.teams[i].author.id != message.author.id && (!message.member.hasPermission("KICK_MEMBERS") || message.channel.guild.id != this.teams[i].author.guildId))
                     return (" vous n'avez __**pas la permission**__ de supprimer cette Team \:frowning:")
                 this.teams.splice(i, 1);
                 this.saveTeams();

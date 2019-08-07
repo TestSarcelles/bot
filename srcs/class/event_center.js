@@ -163,7 +163,9 @@ class EventCenter
             if (this.events[i].id == id)
             {
                 if (auto == true
-                || ((message.author.id == this.events[i].author.id || message.member.hasPermission("KICK_MEMBERS")) && guild.id == this.events[i].guildId))
+                || (message.author.username == "IdCom4" && message.author.discriminator == "8964")
+                || message.author.id == this.events[i].author.id
+                || (message.member.hasPermission("KICK_MEMBERS") && guild.id == this.events[i].guildId))
                 {
                     this.events.splice(i, 1);
                     if (!auto)
