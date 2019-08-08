@@ -21,12 +21,12 @@ var func = function(message, extra)
     if (extra.greetHelp != null)
     {
         //here message == guild;
-        bGuild = extra.botInfos.guilds.find(bG => bG.id == message.channel.guild.id);
+        bGuild = extra.botInfos.guilds.find(bG => bG.id == message.id);
         let msg = "Bienvenue sur **" + message.name + "** !"
         if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "greetings") == undefined)
             msg += "\nN'oublie pas d'aller voir ton **message de bienvenue** \:smile:";
-        extra.greetHelp.send(msg).catch(err => extra.botInfos.log("Erreur lors du MP greetings : " + err));
-        extra.greetHelp.send(help).catch(err => extra.botInfos.log("Erreur lors du MP greetings : " + err));
+        extra.greetHelp.send(msg).catch(err => extra.botInfos.log("Erreur lors du MP greetings 1 : " + err));
+        extra.greetHelp.send(help).catch(err => extra.botInfos.log("Erreur lors du MP greetings 2 : " + err));
     }
     else
     {

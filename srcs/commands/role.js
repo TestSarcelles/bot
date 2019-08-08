@@ -8,7 +8,7 @@ var func = function (message, extra)
 {
     var role_name = message.content.substring(extra.botInfos.prefix.length + name.length + 1);
     var roles = message.channel.guild.roles;
-    var tag = extra.botInfos.guilds.find(bGuild => bGuild.id == guild.id).tag;
+    var tag = extra.botInfos.guilds.find(bGuild => bGuild.id == message.channel.guild.id).tag;
 
     if (message.content.split(" ")[1] == undefined || message.content.split(" ")[1] == null)
     {

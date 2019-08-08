@@ -43,7 +43,7 @@ class Team
 
     setRank(rank, infos)
     {
-        if (rank == undefined || !rank.match(/([0-4][k][0-9])/))
+        if (rank == undefined || !rank.match(/^([0-4][k][0-9])$/))
             return (" mauvais format. **__x__k__y__** attendu (**x** compris entre **0 et 4**, et **y** compris entre **0 et 9**).");
         infos["rank"] = rank;
         return (" le **rank** de votre **team** à bien été mis à jour ! \:sunglasses:");

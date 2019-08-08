@@ -119,7 +119,6 @@ class TeamCenter
     printSearch(message, extra, criterias)
     {
         let channel = message.channel;
-        let tag = extra.botInfos.guilds.find(bGuild => bGuild.id == message.channel.guild.id).tag;
         let found = false;
         channel.send("Voici le **résultat** de votre recherche :");
         this.teams.forEach(team => {
@@ -130,7 +129,7 @@ class TeamCenter
                 {
                     let max = criteria.value.split("k")[0];
                     let min = criteria.value.split("k")[1];
-                    if (parseInt(team.infos["peak"].split("k")[0]) != max || (min != undefined && parseInt(team.infos["peak"].split("k")[1]) < min))
+                    if (parseInt(team.infos["rank"].split("k")[0]) != max || (min != undefined && parseInt(team.infos["rank"].split("k")[1]) < min))
                         match = false;
                 }
                 else if (criteria.field == "heros" && team.infos["wantedPlayers"] != null)

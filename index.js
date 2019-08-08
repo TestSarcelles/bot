@@ -79,8 +79,7 @@ function get_command(command)
 }
 
 bot.on('message', function (message) {
-    if ((message.channel.type == "dm" && !message.content.startsWith(botInfos.prefix + "cv set") && !message.content.startsWith(botInfos.prefix + "team set"))
-    || message.author.bot)
+    if (message.channel.type == "dm" && !message.content.startsWith(botInfos.prefix + "cv set") && !message.content.startsWith(botInfos.prefix + "team set"))
     {
         if (message.author.bot)
             return ;
@@ -88,7 +87,6 @@ bot.on('message', function (message) {
         msg += "Pour créer votre **Team/CV** ou pour toute **autre commande**, je vous redirige vers un serveur du **réseau OverLead**."
         return (message.reply(msg).catch(err => botInfos.log("Erreur lors du reply en MP : " + err)));
     }
-        
     let ref = "ou à faire un __**" + botInfos.prefix + "event new**__ pour créer le votre ! \:smile:";
     let bGuild;
     if (message.channel.type != "dm")
@@ -148,7 +146,7 @@ bot.on('guildMemberAdd', function (member) {
 bot.on('guildMemberRemove', function (member) {
     let bGuild = guild_center.getGuild(member, "mem");
     if (bGuild.blockedCmds.find(blockedCmd => blockedCmd == "leave") == undefined)
-        bGuild.sendOnChannel(`${member.user} nous à **quitté**. R.I.P \:cry:`, "greetings");
+        bGuild.sendOnChannel(`**` + member.user.username + `** nous à **quitté**. R.I.P \:cry:`, "greetings");
 });
 
 

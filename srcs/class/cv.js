@@ -35,7 +35,7 @@ class CV
 
     setPeak(peak, infos)
     {
-        if (peak == undefined || peak.length > 3 || !peak.match(/([0-4][k][0-9])/))
+        if (peak == undefined || peak.length > 3 || !peak.match(/^([0-4][k][0-9])$/))
             return (" mauvais format. **__x__k__y__** attendu (**x** compris entre **0 et 4**, et **y** compris entre **0 et 9**).");
         infos["peak"] = peak;
         return (" le **peak** de votre **CV** à bien été mis à jour ! \:sunglasses:");

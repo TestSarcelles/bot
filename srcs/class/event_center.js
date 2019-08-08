@@ -20,10 +20,10 @@ class EventCenter
             "Permet de consulter la **liste des évènements en cours** en tapant **" + this.bInf.prefix + " event list**.",
             "Permet d'accéder aux **informations détaillées** d'un évènement en tapant **" + this.bInf.prefix + "event infos __ID__** (**ID** = id de l'évènement).",
             "Permet de **vous inscrire** à un évènement en tapant **" + this.bInf.prefix + "event join __ID__** (**ID** = id de l'évènement).",
-            "Permet **quitter** un évènement en tapant **" + this.bInf.prefix + "event leave __ID__** (**ID** = id de l'évènement).",
-            "Permet **supprimer** un évènement en tapant **" + this.bInf.prefix + "event delete __ID__** (**ID** = id de l'évènement), __**si vous êtes son créateur ou au moins modérateur**__.",
-            "Permet **d'ajouter manuellement** un joueur en tapant **" + this.bInf.prefix + "event add __ID__ __\@user__** (**ID** = id de l'évènement). (__**nécessite d'être au moins modérateur**__)",
-            "Permet **d'enlever manuellement** un joueur en tapant **" + this.bInf.prefix + "event remove __ID__ __\@user__** (**ID** = id de l'évènement). (__**nécessite d'être au moins modérateur**__)",
+            "Permet de **quitter** un évènement en tapant **" + this.bInf.prefix + "event leave __ID__** (**ID** = id de l'évènement).",
+            "Permet de **supprimer** un évènement en tapant **" + this.bInf.prefix + "event delete __ID__** (**ID** = id de l'évènement), __**si vous êtes son créateur ou au moins modérateur**__.",
+            "Permet **d'ajouter manuellement** un joueur en tapant **" + this.bInf.prefix + "event add __ID__ __\@user__** (**ID** = id de l'évènement)\n(__**nécessite d'être au moins modérateur**__)",
+            "Permet **d'enlever manuellement** un joueur en tapant **" + this.bInf.prefix + "event remove __ID__ __\@user__** (**ID** = id de l'évènement).\n(__**nécessite d'être au moins modérateur**__)",
             "Permet **de rechercher un évènement** par mot clé en tapant **" + this.bInf.prefix + "event find __les mots clés__**."
         ];
         this.desc = "Les évènements sont en **commun avec tous les serveurs**, alors **n'hésitez pas** à vous inscrire et aller **rencontrer du monde** ! \:smile:";
@@ -107,18 +107,18 @@ class EventCenter
 
     getInfos(id, message, extra)
     {
-        let tag = extra.botInfos.guilds.find(bGuild => bGuild.id == message.channel.guild.id).tag;
-        let found = false;
-        this.events.forEach(event => {
+        let bGuild = extra.botInfos.guilds.find(bGuild => bGuild.id == message.channel.guild.id)
+        let tag = bGuild.tag;
+        for (var event of this.events)
+        {
             if (event.id == id)
             {
-                message.channel.send(event.fullPrint(null, tag, extra, true)).catch(err => this.bInf.log("Erreur lors d'un send getInfos event_center : " + err));
-                found = true;
+                let fromOrigin = ((event.guildId == bGuild.id) ? true : false);
+                message.channel.send(event.fullPrint(null, tag, extra, fromOrigin)).catch(err => this.bInf.log("Erreur lors d'un send getInfos event_center : " + err));
                 return ;
             }
-        });
-        if (!found)
-            message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:").catch(err => this.bInf.log("Erreur lors d'un send no Id event_center: " + err));
+        }
+        message.channel.send("Aucun évènement ne correspond à cet **ID** \:thinking:").catch(err => this.bInf.log("Erreur lors d'un send no Id event_center: " + err));
     }
 
     joinEvent(id, message, userAdd, tag)
@@ -198,7 +198,6 @@ class EventCenter
             let eventGuild = extra.botInfos.guilds.find(bGuild => bGuild.id == event.guildId);
             if (now == null)
                 now = new BotDate().fromDate(new Date().toString());
-            extra.botInfos.log("Check: nous sommes " + now.toString());
             var diff = now.diff(event.date);
             if (diff >= 0 && diff <= 90)
             {

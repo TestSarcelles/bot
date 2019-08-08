@@ -47,7 +47,7 @@ var func = function (message, extra)
                 channel.send("Mauvais format.\nEx : **" + extra.botInfos.prefix + "event new J/M/A HhM __" + delimitor + "__ Le titre __" + delimitor + "__ La description** attendu.");
             return (0);
         }
-        var event = new Event(title, description, extra.event_center.getNewId(), message.member, date, message.member.guild.id);
+        var event = new Event(title.trim(), description.trim(), extra.event_center.getNewId(), message.member, date, message.member.guild.id);
         bGuild.defaultChannel.createInvite({maxAge : 60 * 60 * 24, maxUses : 100}).then(invite => {
             event.invite = invite.code;
             extra.event_center.addEvent(event, message, extra);

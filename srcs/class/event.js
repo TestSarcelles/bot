@@ -85,6 +85,7 @@ class Event
         let title = this.title;
         let hour = this.date.getHour();
         let id = this.id;
+        let hostGuild = extra.botInfos.guilds.find(bG => bG.id == this.guildId).name;
         this.subscribedUsers.forEach(lightUser =>
         {
             let bGuild = extra.botInfos.guilds.find(bGuild => bGuild.id == lightUser.guildId);
@@ -93,10 +94,10 @@ class Event
             {
                 member.createDM().then(function (channel) {
                     let msg = `Bonjour **${member.user}** ! \:smiley:\n`;
-                    msg += "N'oublie pas que tu es inscrit à l'évènement __**" + title + "**__ ayant lieu à **" + hour + "** !\n\n";
+                    msg += "N'oublie pas que tu es inscrit à l'évènement __**" + title + "**__ ayant lieu à **" + hour + "** sur **" + hostGuild + "** (lien dans l'évènement) !\n\n";
                     msg += "*Si tu ne souhaites plus y participer, n'oublie pas de te désister dès maintenant en faisant __**" + extra.botInfos.prefix + "event leave " + id + "**__ !*\n\n";
                     msg += "- OverLead";
-                    channel.send(msg).catch(err => extra.botInfos.log("Erreur lors de l'envoi de l'alerte near event en DM : " + err));;
+                    channel.send(msg).catch(err => extra.botInfos.log("Erreur lors de l'envoi de l'alerte near event en DM : " + err));
                 }).catch(err => extra.botInfos.log("Erreur lors la creation du DM : " + err));
             }
         });
